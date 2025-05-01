@@ -1,0 +1,52 @@
+<div class="card overflow-hidden border-2">
+  <div class="h-16 relative overflow-hidden">
+    <div class="absolute bg-gray-200 top-0 right-0 bottom-0 left-0 w-full h-full z-0"></div>
+    <svg
+      class="avatar size-24 absolute top-6 ltr:left-4 rtl:right-4 sm:hidden"
+      xmlns="http://www.w3.org/2000/svg"
+      width="32"
+      height="32"
+      viewBox="0 0 24 24">
+      <rect width="32" height="32" fill="white"></rect>
+
+      <path
+        fill="#7c3aed"
+        d="M.75 7.5h9.75l.75 1.5H1.5zm1 3h9.75l.75 1.5H2.5zm16.25 8c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5s.67 1.5 1.5 1.5m1.5-9H17V12h4.46zM8 18.5c.83 0 1.5-.67 1.5-1.5s-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5s.67 1.5 1.5 1.5M20 8l3 4v5h-2c0 1.66-1.34 3-3 3s-3-1.34-3-3h-4c0 1.66-1.35 3-3 3c-1.66 0-3-1.34-3-3H3v-3.5h2V15h.76c.55-.61 1.35-1 2.24-1s1.69.39 2.24 1H15V6H3c0-1.11.89-2 2-2h12v4z" />
+    </svg>
+  </div>
+
+  <div class="z-10 relative -mt-16 px-6 flex items-center">
+    @if (icon()) {
+      <div
+        @scaleIn
+        class="avatar size-24 flex items-center justify-center border-2 bg-white border-primary-200 overflow-hidden">
+        <mat-icon class="size-[90%]" matPrefix color="primary" [svgIcon]="icon()!" />
+      </div>
+    }
+
+    <div class="max-w-full flex-auto sm:ltr:ml-6 sm:rtl:mr-6">
+      <div class="h-16 flex gap-x-2 items-end">
+        <h1 @fadeInRight class="headline text-black pb-2 m-0">
+          {{ title() | titlecase }}
+        </h1>
+        @if (!isCreate() && !isElementActive()) {
+          <span class="self-start rounded-full bg-red-600 px-2 py-1 mt-3">
+            <h1 class="text-white text-sm uppercase">
+              {{ disabledText() }}
+            </h1>
+          </span>
+        }
+      </div>
+
+      <nav [tabPanel]="tabPanel" class="border-0" mat-tab-nav-bar>
+        @for (tab of tabs(); track $index) {
+          <a class="select-none" mat-tab-link [active]="tab.active" [disabled]="tab.disabled" (click)="tab.onClick()">
+            {{ tab.label }}
+          </a>
+        }
+      </nav>
+
+      <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
+    </div>
+  </div>
+</div>

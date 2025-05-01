@@ -1,0 +1,26 @@
+<div class="flex w-full justify-center gap-x-10">
+  <vex-widget-quick-value-center
+    class="flex flex-1"
+    valueClass="bg-blue-600 text-white"
+    icon="mat:attach_money"
+    iconClass="text-white border border-white"
+    label="Ventas este mes"
+    value="67.4k" />
+  <vex-widget-quick-value-center
+    class="flex flex-1"
+    valueClass="bg-green-600 text-white"
+    icon="mat:attach_money"
+    iconClass="text-white border border-white"
+    label="Ventas mes anterior"
+    value="67.4k" />
+  <vex-widget-quick-value-center
+    class="flex flex-1"
+    valueClass="bg-purple-600 text-white"
+    icon="mat:group"
+    iconClass="text-white border border-white"
+    label="Ventas acumuladas"
+    value="67.4k" />
+</div>
+<div class="flex w-full justify-center gap-x-10">
+  <vex-widget-large-goal-chart [series]="salesSeries" class="sm:col-span-full" total="4,374" />
+</div>

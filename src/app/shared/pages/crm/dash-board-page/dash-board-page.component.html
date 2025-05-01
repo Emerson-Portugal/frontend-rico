@@ -1,0 +1,33 @@
+<div class="flex w-full justify-center gap-x-10">
+  <vex-widget-quick-value-center
+    class="flex flex-1"
+    valueClass="bg-blue-600 text-white"
+    icon="mat:group"
+    iconClass="text-white border border-white"
+    label="Clientes contactados"
+    value="67.4k" />
+  <vex-widget-quick-value-center
+    class="flex flex-1"
+    valueClass="bg-green-600 text-white"
+    icon="mat:attach_money"
+    iconClass="text-white border border-white"
+    label="Ingreso estimado"
+    value="67.4k" />
+  <vex-widget-quick-value-center
+    class="flex flex-1"
+    valueClass="bg-purple-600 text-white"
+    icon="mat:attach_money"
+    iconClass="text-white border border-white"
+    label="Cierre estimado"
+    value="67.4k" />
+</div>
+<div class="grid grid-cols-3 gap-x-5">
+  <vex-widget-table title="Proximas Citas" [columns]="tableColumns" [data]="tableData" [pageSize]="4" />
+  <div class="grid grid-cols-1 card p-6">
+    <div class="flex w-full justify-center">
+      <h3 class="flex title font-medium">Ingresos Estimados</h3>
+    </div>
+    <vex-chart [options]="options" [series]="series" />
+  </div>
+  <vex-widget-table title="Recent Sales" [columns]="tableColumns" [data]="tableData" [pageSize]="4" />
+</div>

@@ -1,0 +1,1 @@
+export type ModalViewMode = 'list' | 'form'

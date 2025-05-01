@@ -1,0 +1,74 @@
+<vex-page-layout>
+  @if (showToolbar()) {
+    <vex-secondary-toolbar [current]="title() | titlecase">
+      @if (showBreadcrumbs()) {
+        <vex-breadcrumbs [crumbs]="urlTree()" class="flex-auto" />
+      }
+      @if (showActionButtons()) {
+        <div class="flex space-x-2">
+          @switch (editViewMode()) {
+            @case (editViewModeEnum.VIEW_ONLY) {
+              <button mat-raised-button color="primary" type="button" (click)="onClickList()">Listar</button>
+              <button mat-raised-button color="primary" type="button" (click)="onClickEdit()">Editar</button>
+              <button mat-raised-button color="primary" type="button" (click)="onClickCreate()">Crear</button>
+              <button mat-raised-button color="primary" [matMenuTriggerFor]="actionsMenu" type="button">
+                Opciones
+              </button>
+              <mat-menu #actionsMenu="matMenu" xPosition="before" yPosition="below">
+                <ng-template matMenuContent>
+                  @if (hasDeleteListeners()) {
+                    <button mat-menu-item (click)="onClickDelete()">
+                      <mat-icon svgIcon="mat:delete" />
+                      <span>Eliminar</span>
+                    </button>
+                  }
+                  @if (isElementActive()) {
+                    <button mat-menu-item (click)="onClickDisable()">
+                      <mat-icon svgIcon="mat:lock" />
+                      <span>Anular</span>
+                    </button>
+                  } @else {
+                    <button mat-menu-item (click)="onClickEnable()">
+                      <mat-icon svgIcon="mat:lock_open" />
+                      <span>Activar</span>
+                    </button>
+                  }
+                  @if (hasGetFormatListeners()) {
+                    <button mat-menu-item (click)="onClickGetFormat()">
+                      <mat-icon svgIcon="mat:picture_as_pdf" />
+                      <span>Ver Formato Vacio</span>
+                    </button>
+                  }
+                  @if (hasGetPdfListeners()) {
+                    <button mat-menu-item (click)="onClickGetPdf()">
+                      <mat-icon svgIcon="mat:picture_as_pdf" />
+                      <span>Ver PDF</span>
+                    </button>
+                  }
+                  @if (hasGetEmailSentListeners()) {
+                    <button mat-menu-item (click)="onClickSendEmail()">
+                      <mat-icon svgIcon="mat:mail" />
+                      <span>Enviar</span>
+                    </button>
+                  }
+                </ng-template>
+              </mat-menu>
+            }
+            @default {
+              <button mat-raised-button color="primary" type="button" (click)="saveElement.emit()">Guardar</button>
+              <button mat-raised-button color="gray" type="button" (click)="onCancel()">Cancelar</button>
+            }
+          }
+        </div>
+      }
+    </vex-secondary-toolbar>
+  }
+  <vex-page-layout-content
+    class="mt-10"
+    [class.container]="layout() === 'boxed'"
+    [class.px-6]="layout() === 'fullwidth'">
+    <div class="card overflow-auto -mt-14" [class]="customClasses()">
+      <ng-content />
+    </div>
+  </vex-page-layout-content>
+</vex-page-layout>

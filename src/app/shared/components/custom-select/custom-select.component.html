@@ -1,0 +1,31 @@
+<div
+  class="flex w-full"
+  [class.pointer-events-none]="disabled()"
+  [class.opacity-70]="disabled()"
+  [class]="inputClass()"
+>
+  <mat-form-field
+    class="flex w-full"
+    subscriptSizing="dynamic"
+    [formGroup]="form()"
+  >
+    @if (label()) {
+      <mat-label
+        class="select-none"
+        [class]="disabled() ? 'pointer-events-none' : ''"
+      >
+        {{ label() }}
+      </mat-label>
+    }
+    <mat-select
+      class="cursor-default"
+      [formControlName]="formControlName()"
+      [(value)]="value"
+    >
+      <mat-option>Elija una opción</mat-option>
+      @for (item of dropDownItems(); track $index) {
+        <mat-option [value]="item.value">{{ item.label }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+</div>

@@ -1,0 +1,4 @@
+export enum ScopeTypeEnum {
+  NACIONAL = 'NACIONAL',
+  INTERNACIONAL = 'INTERNACIONAL',
+}

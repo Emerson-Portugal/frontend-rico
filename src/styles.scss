@@ -1,0 +1,106 @@
+@import "~simplebar/dist/simplebar.css";
+@import "~highlight.js/styles/androidstudio.css";
+@import "./@vex/styles/core";
+
+body {
+  // --main_blue: hsl(206, 100%, 31%);
+  --main_blue: hsl(222, 60%, 33%);
+  // --main_blue_dark: hsl(206, 100%, 24%);
+  --main_blue_dark: hsl(222, 100%, 33%);
+  --sidenav-toolbar-height: 64px;
+  --vex-toolbar-height: 0px !important;
+  --vex-footer-height: 0px !important;
+  --mat-form-field-container-vertical-padding: 10px !important;
+  --mat-form-field-container-height: calc(var(--mat-form-field-container-vertical-padding) * 3 + 8px) !important;
+  --mdc-outlined-text-field-disabled-input-text-color: rgba($color: black, $alpha: 1) !important;
+  --mdc-outlined-text-field-disabled-label-text-color: rgba($color: black, $alpha: 1) !important;
+  --mdc-outlined-text-field-input-text-color: rgba($color: black, $alpha: 1) !important;
+  --mdc-outlined-text-field-label-text-color: rgba($color: black, $alpha: 1) !important;
+  --vex-sidenav-item-background-hover: var(--main_blue_dark) !important;
+  --vex-sidenav-item-background-active: var(--main_blue_dark) !important;
+  --vex-sidenav-item-dropdown-background: var(--main_blue) !important;
+  --vex-sidenav-item-dropdown-background-hover: var(--main_blue_dark) !important;
+  --vex-sidenav-item-dropdown-background-active: var(--main_blue_dark) !important;
+}
+
+.vex-sidenav-user__container,
+.sidenav-toolbar,
+.simplebar-content-wrapper,
+.simplebar-offset {
+  background-color: var(--main_blue) !important;
+}
+
+.vex-sidenav-user__dropdown-icon,
+.vex-sidenav-item__dropdown-icon,
+.vex-sidenav-item__icon {
+  svg {
+    color: white !important;
+  }
+}
+
+.vex-sidenav-item__label {
+  color: white !important;
+}
+
+.disabled {
+
+  app-custom-input,
+  app-custom-select,
+  app-custom-input-modal,
+  app-custom-date-input,
+  app-custom-textarea {
+    pointer-events: none;
+    opacity: 0.7;
+
+    mat-form-field {
+      .mat-mdc-form-field-icon-suffix {
+        pointer-events: none !important;
+
+        button {
+          display: none !important;
+        }
+      }
+    }
+  }
+
+  app-custom-table {
+    table {
+      pointer-events: none;
+      opacity: 0.7;
+    }
+  }
+}
+
+.mat-mdc-form-field-icon-suffix {
+  button.mat-mdc-icon-button.mat-mdc-button-base {
+    --mdc-icon-button-state-layer-size: 44px !important;
+  }
+}
+
+mat-form-field {
+  label.mat-mdc-floating-label {
+    pointer-events: none !important;
+  }
+
+  .mdc-notched-outline__notch {
+    border-left: none !important;
+    border-right: none !important;
+  }
+
+  .mat-mdc-form-field-infix {
+    width: 100% !important;
+  }
+
+  &.mat-form-field-disabled,
+  &.mat-mdc-form-field-disabled {
+    .mat-mdc-form-field-icon-suffix {
+      display: none !important;
+    }
+
+    .mdc-notched-outline__leading,
+    .mdc-notched-outline__notch,
+    .mdc-notched-outline__trailing {
+      border-color: rgba($color: gray, $alpha: 0.4) !important;
+    }
+  }
+}

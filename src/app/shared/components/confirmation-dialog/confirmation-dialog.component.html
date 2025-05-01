@@ -1,0 +1,15 @@
+<div class="flex items-center" mat-dialog-title>
+  <h2 class="headline m-0 flex-auto">{{ title }}</h2>
+
+  <button class="text-secondary" mat-dialog-close mat-icon-button type="button">
+    <mat-icon svgIcon="mat:close" />
+  </button>
+</div>
+<mat-dialog-content>
+  <p>{{ message }}</p>
+</mat-dialog-content>
+
+<mat-dialog-actions [align]="'end'">
+  <button mat-button color="primary" (click)="onConfirm()">Aceptar</button>
+  <button mat-button mat-dialog-close>Cancelar</button>
+</mat-dialog-actions>

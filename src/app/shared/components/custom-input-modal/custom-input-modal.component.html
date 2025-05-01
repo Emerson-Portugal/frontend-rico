@@ -1,0 +1,33 @@
+<div
+  class="flex w-full"
+  [class.pointer-events-none]="disabled()"
+  [class.opacity-70]="disabled()"
+  [class]="inputClass()">
+  <mat-form-field class="flex w-full" subscriptSizing="dynamic" [formGroup]="form()">
+    @if (label()) {
+      <mat-label class="select-none" [class]="disabled() ? 'pointer-events-none' : ''">
+        {{ label() }}
+      </mat-label>
+    }
+    @if (leftIcon()) {
+      <mat-icon matIconPrefix [svgIcon]="leftIcon()!" />
+    }
+    <input
+      matInput
+      class="cursor-default"
+      type="text"
+      [(ngModel)]="value"
+      [readonly]="!isEditable()"
+      [formControlName]="formControlName()"
+      [placeholder]="placeHolder() ?? ''"
+      [mask]="maskFormat()"
+      thousandSeparator="."
+      decimalMarker="," />
+    <mat-icon
+      matIconSuffix
+      class="cursor-pointer"
+      color="primary"
+      [svgIcon]="value() ? 'mat:close' : 'mat:search'"
+      (click)="onIconClick()" />
+  </mat-form-field>
+</div>

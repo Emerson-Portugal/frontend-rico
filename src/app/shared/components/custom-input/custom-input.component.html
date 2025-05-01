@@ -1,0 +1,44 @@
+<div
+  class="flex w-full"
+  [class.pointer-events-none]="disabled() || readonly()"
+  [class.opacity-70]="disabled() || readonly()"
+  [class]="inputClass()">
+  <mat-form-field class="flex w-full" subscriptSizing="dynamic">
+    @if (label()) {
+      <mat-label class="select-none" [class]="disabled() || readonly() ? 'pointer-events-none' : ''">
+        {{ label() }}
+      </mat-label>
+    }
+    @if (leftIcon()) {
+      <mat-icon matIconPrefix [svgIcon]="leftIcon()!" />
+    }
+    @if (form() && formControlName()) {
+      <div class="flex" [formGroup]="form()">
+        <input
+          matInput
+          [appSelectInputValue]="['onlyNumber', 'number', 'decimal', 'decimal4'].includes(mask())"
+          [formControlName]="formControlName()"
+          [type]="type()"
+          [placeholder]="placeHolder() ?? ''"
+          [readonly]="readonly()"
+          [mask]="maskFormat()"
+          [allowNegativeNumbers]="maskAllowNegative()"
+          thousandSeparator="."
+          decimalMarker="," />
+      </div>
+    } @else {
+      <input
+        matInput
+        [(ngModel)]="value"
+        [type]="type()"
+        [placeholder]="placeHolder() ?? ''"
+        [disabled]="disabled()"
+        [readonly]="readonly()"
+        [required]="required()"
+        [mask]="maskFormat()"
+        [allowNegativeNumbers]="maskAllowNegative()"
+        thousandSeparator="."
+        decimalMarker="," />
+    }
+  </mat-form-field>
+</div>

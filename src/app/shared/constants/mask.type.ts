@@ -1,0 +1,1 @@
+export type Mask = 'number' | 'decimal' | 'decimal4' | 'date' | 'time' | 'datetime' | 'onlyNumber' | 'text'

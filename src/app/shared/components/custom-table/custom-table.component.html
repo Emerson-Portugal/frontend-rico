@@ -1,0 +1,141 @@
+<div class="card w-full overflow-auto">
+  <div class="bg-app-bar px-6 h-16 border-b sticky left-0 flex items-center">
+    @if (title()) {
+      <h2 class="title my-0 ltr:pr-4 rtl:pl-4 ltr:mr-4 rtl:ml-4 ltr:border-r rtl:border-l hidden sm:block flex-none">
+        <span>{{ title() }}</span>
+      </h2>
+    }
+    @if (showSearch()) {
+      <app-custom-input
+        placeholder="Buscar&hellip;"
+        icon="mat:search"
+        [(value)]="searchTerm"
+        (valueChange)="onSearchTermChanged()" />
+    }
+    <span class="flex-1"></span>
+    @if (showExportButton()) {
+      <button
+        mat-mini-fab
+        class="flex-none"
+        color="primary"
+        matTooltip="Exportar a Excel"
+        type="button"
+        (click)="onExportToExcel()">
+        <mat-icon svgIcon="mat:description"></mat-icon>
+      </button>
+    }
+    @if (showCreateButton()) {
+      <button
+        mat-mini-fab
+        class="ml-4 flex-none"
+        color="primary"
+        matTooltip="Agregar nuevo"
+        type="button"
+        (click)="onCreateElement()">
+        <mat-icon svgIcon="mat:add"></mat-icon>
+      </button>
+    }
+  </div>
+
+  <div class="flex-1" #customTableElement>
+    <table @stagger [dataSource]="dataSource()" mat-table matSort>
+      @for (column of columns(); track trackByProperty) {
+        @if (column.type === "text") {
+          <ng-container [matColumnDef]="column.property">
+            <th *matHeaderCellDef class="uppercase" mat-header-cell mat-sort-header>
+              {{ column.label }}
+            </th>
+            <td mat-cell *matCellDef="let row" class="uppercase" [class]="column.cssClasses">
+              <span class="block" [class.text-right]="['number', 'decimal', 'decimal4'].includes(column.pipe ?? '')">
+                @if (column.prefix) {
+                  {{ column.prefix }}
+                }
+                @switch (column.pipe) {
+                  @case ("date") {
+                    {{ getNestedProperty(row, column.property) | customDate }}
+                  }
+                  @case ("datetime") {
+                    {{ getNestedProperty(row, column.property) | customDate }}
+                  }
+                  @case ("number") {
+                    {{ getNestedProperty(row, column.property) | number: "1.0-0" : "es-CL" }}
+                  }
+                  @case ("decimal") {
+                    {{ getNestedProperty(row, column.property) | number: "1.2-2" : "es-CL" }}
+                  }
+                  @case ("decimal4") {
+                    {{ getNestedProperty(row, column.property) | number: "1.4-4" : "es-CL" }}
+                  }
+                  @default {
+                    {{ getNestedProperty(row, column.property) }}
+                  }
+                }
+                @if (column.suffix) {
+                  {{ column.suffix }}
+                }
+              </span>
+            </td>
+          </ng-container>
+        } @else {
+          <ng-container matColumnDef="actions">
+            <th *matHeaderCellDef mat-header-cell mat-sort-header></th>
+            <td *matCellDef="let row" mat-cell>
+              <button (click)="onDeleteElement(row)" mat-icon-button type="button">
+                <mat-icon svgIcon="mat:delete"></mat-icon>
+              </button>
+            </td>
+          </ng-container>
+        }
+      }
+      <tr *matHeaderRowDef="visibleColumns" mat-header-row></tr>
+      <tr
+        @fadeInUp
+        class="hover:bg-hover transition duration-400 ease-out-swift cursor-pointer"
+        mat-row
+        *matRowDef="let row; columns: visibleColumns"
+        (click)="onRowClick(row)"></tr>
+    </table>
+  </div>
+
+  <div class="flex justify-end items-center">
+    <div class="text-sm font-medium text-gray-700 flex items-center space-x-4">
+      <div class="flex gap-x-1 text-gray-500">
+        <span class="font-bold">Total:</span>
+        <span class="font-semibold">{{ paginator().totalCount }}</span>
+      </div>
+
+      <div class="flex items-center gap-x-2 py-1">
+        <span class="font-bold">Página</span>
+        <span class="bg-gray-100 rounded text-gray-800">
+          {{ paginator().currentPage }}
+        </span>
+        <span class="font-bold">de</span>
+        <span class="bg-gray-100 rounded text-gray-800">
+          {{ paginator().totalPages }}
+        </span>
+      </div>
+    </div>
+
+    <div class="flex items-center">
+      <button
+        mat-icon-button
+        class="flex items-center text-blue-500 hover:text-blue-600 disabled:text-gray-300 disabled:cursor-not-allowed"
+        [disabled]="paginator().currentPage === 1"
+        (click)="onPreviousPage()">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </button>
+
+      <button
+        mat-icon-button
+        class="flex items-center text-blue-500 hover:text-blue-600 disabled:text-gray-300 disabled:cursor-not-allowed"
+        [disabled]="paginator().currentPage >= paginator().totalPages"
+        (click)="onNextPage()">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>

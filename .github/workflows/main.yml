@@ -1,0 +1,28 @@
+name: Deploy Angular App to DigitalOcean
+
+on:
+  push:
+    branches:
+      - develop # Este es el trigger para la rama 'develop'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      
+       # 4. Instala dependencias, construye y mueve archivos en el servidor remoto
+      - name: Build and Deploy on DigitalOcean
+        uses: appleboy/ssh-action@v0.1.0
+        with:
+          host: ${{ secrets.DO_HOST }}
+          username: ${{ secrets.DO_USERNAME }}
+          key: ${{ secrets.DO_PRIVATE_KEY }}
+          script: |
+            cd erp-front/
+            git pull
+            npm install
+            ng build --configuration production
+            sudo rm -rf /var/www/html/*
+            sudo mv dist/sertchile/* /var/www/html/
+            sudo systemctl restart nginx

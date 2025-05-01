@@ -1,0 +1,51 @@
+<div class="relative w-full h-full">
+  <img
+    class="absolute top-1/2 left-1/2 w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 z-0"
+    src="assets/vid/sert.png" />
+  <div class="flex flex-col justify-center h-[100vh] items-center gap-y-4 relative z-10">
+    <div class="flex flex-wrap">
+      <img class="h-20" src="assets/img/logo/logo.png" />
+    </div>
+    <div class="flex flex-wrap gap-x-16">
+      <app-custom-card
+        class="flex"
+        imageUrl="assets/img/menu/obrero.png"
+        content="Operario"
+        (click)="navigateTo('crm/dashboard')" />
+      <app-custom-card
+        class="flex"
+        imageUrl="assets/img/menu/revisor.png"
+        content="Revisador"
+        (click)="navigateTo('commercial-management/dashboard')" />
+      <app-custom-card
+        class="flex"
+        imageUrl="assets/img/menu/auxiliar.png"
+        content="Auxiliar"
+        (click)="navigateTo('operational-management/dashboard')" />
+    </div>
+    <div class="flex flex-wrap gap-x-16">
+      <app-custom-card
+        class="flex"
+        imageUrl="assets/img/menu/activov2.png"
+        content="Supervisor"
+        (click)="navigateTo('actives/dashboard')" />
+      <app-custom-card
+        class="flex"
+        imageUrl="assets/img/menu/contabilidadv2.png"
+        content="Contabilidad"
+        (click)="navigateTo('accounting/dashboard')" />
+        <app-custom-card
+          class="flex"
+          imageUrl="assets/img/menu/facturav2.png"
+          content="Facturación"
+          (click)="navigateTo('invoice/dashboard')" />
+    </div>
+    <div class="flex flex-wrap gap-x-16">
+      <app-custom-card
+        class="flex"
+        imageUrl="assets/img/menu/configv2.png"
+        content="Configuración"
+        (click)="navigateTo('config/dashboard')" />
+    </div>
+  </div>
+</div>

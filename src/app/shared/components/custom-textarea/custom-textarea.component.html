@@ -1,0 +1,21 @@
+<div
+  class="flex w-full"
+  [class.pointer-events-none]="disabled()"
+  [class.opacity-70]="disabled()"
+  [class]="inputClass()">
+  <mat-form-field class="flex w-full" subscriptSizing="dynamic" [formGroup]="form()">
+    @if (label()) {
+      <mat-label class="select-none" [class]="disabled() ? 'pointer-events-none' : ''">
+        {{ label() }}
+      </mat-label>
+    }
+    <textarea
+      matInput
+      [class]="resizable() ? 'resize-y' : 'resize-none'"
+      [attr.rows]="rows()"
+      [attr.cols]="cols()"
+      [attr.maxLength]="maxLength()"
+      [formControlName]="formControlName()"
+      [placeholder]="placeHolder() ?? ''"></textarea>
+  </mat-form-field>
+</div>
