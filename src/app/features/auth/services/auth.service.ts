@@ -14,7 +14,7 @@ export class AuthService {
   private readonly api = inject(ApiService)
 
   login(credentials: CredentialDto): Observable<SuccessfulResponse<TokenDto>> {
-    return this.api.post<TokenDto>('shared/authentication', credentials).pipe(
+    return this.api.post<TokenDto>('login', credentials).pipe(
       tap(({ data }) => this.tokenService.setToken(data.token))
     )
   }

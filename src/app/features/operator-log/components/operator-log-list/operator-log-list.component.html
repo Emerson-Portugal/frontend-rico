@@ -1,0 +1,11 @@
+<app-custom-table
+  [title]="title"
+  [(elements)]="operatorLog"
+  [columns]="columns"
+  [paginator]="paginator()"
+  (changeCurrentPage)="onCurrentPageChange($event)"
+  [rowClickBehaviour]="getSelectedBehaviour()"
+  (rowClickCustomBehaviour)="getSelected.emit($event)"
+  [createElementBehaviour]="createBehaviour()"
+  (createElementCustomBehaviour)="create.emit()"
+  (searchByText)="onSearchByText($event)" />

@@ -48,7 +48,7 @@ export class LoginComponent {
 
   send() {
     const credential: CredentialDto = {
-      userName: this.form.get('username')?.value ?? '',
+      username: this.form.get('username')?.value ?? '',
       password: this.form.get('password')?.value ?? '',
     }
 
