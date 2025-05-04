@@ -15,11 +15,18 @@ export class AuthService {
 
   login(credentials: CredentialDto): Observable<SuccessfulResponse<TokenDto>> {
     return this.api.post<TokenDto>('login', credentials).pipe(
-      tap(({ data }) => this.tokenService.setToken(data.token))
+      tap(({ data }) => {
+        this.tokenService.setToken(data.token)
+        this.tokenService.setRole(data.user.role) // Guarda el rol
+      })
     )
   }
+  
 
-  getAccountSession(): Observable<SuccessfulResponse<AccountDto>> {  
-    return this.api.get<AccountDto>('shared/accounts/GetAccountSession')
+  getAccountSession(): Observable<SuccessfulResponse<AccountDto>> {
+    return this.api.post<AccountDto>('profile', {});
   }
+  
+  
+  
 }

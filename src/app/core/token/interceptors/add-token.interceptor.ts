@@ -11,7 +11,7 @@ export const addTokenInterceptor: HttpInterceptorFn = (req, next, tokenService =
   })
   if (tokenService.tokenExists()) {
     modifiedReq = modifiedReq.clone({
-      headers: modifiedReq.headers.set('Authorization', `Bearer ${tokenService.getToken()}`),
+      headers: modifiedReq.headers.set('Authorization', `Token ${tokenService.getToken()}`),
     })
   }
 

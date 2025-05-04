@@ -8,27 +8,31 @@
     </div>
     <div class="flex flex-wrap gap-x-16">
       <app-custom-card
+      *ngIf="userRole === 'OPERADOR'"
         class="flex"
         imageUrl="assets/img/menu/obrero.png"
-        content="Operario"
-        (click)="navigateTo('crm/dashboard')" />
+        content="Gestion Operativa"
+        (click)="navigateTo('operational-management/dashboard')" />
       <app-custom-card
+      *ngIf="userRole === 'REVISADOR'"
         class="flex"
         imageUrl="assets/img/menu/revisor.png"
-        content="Revisador"
-        (click)="navigateTo('commercial-management/dashboard')" />
+        content="Gestion Revisora"
+        (click)="navigateTo('reviewer-management/dashboard')" />
       <app-custom-card
+      *ngIf="userRole === 'AUXILIAR'"
         class="flex"
         imageUrl="assets/img/menu/auxiliar.png"
-        content="Auxiliar"
-        (click)="navigateTo('operational-management/dashboard')" />
+        content="Gestion Auxiliar"
+        (click)="navigateTo('assistant-management/dashboard')" />
     </div>
     <div class="flex flex-wrap gap-x-16">
       <app-custom-card
+      *ngIf="userRole === 'SUPERVISOR'"
         class="flex"
         imageUrl="assets/img/menu/activov2.png"
-        content="Supervisor"
-        (click)="navigateTo('actives/dashboard')" />
+        content="Gestion de Supervisores"
+        (click)="navigateTo('supervisor-management/dashboard')" />
       <app-custom-card
         class="flex"
         imageUrl="assets/img/menu/contabilidadv2.png"

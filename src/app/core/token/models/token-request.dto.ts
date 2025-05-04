@@ -1,4 +1,4 @@
 export interface TokenRequestDto {
-  userName: string
+  username: string
   password: string
 }

@@ -1,5 +1,5 @@
 export interface SimpleAccountDto {
-  userName: string
+  username: string
   firstName: string
   lastName: string
 }

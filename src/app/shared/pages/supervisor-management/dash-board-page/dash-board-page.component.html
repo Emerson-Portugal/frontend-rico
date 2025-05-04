@@ -1,0 +1,27 @@
+<div class="flex w-full justify-center gap-x-10">
+  <vex-widget-quick-value-center
+    class="flex flex-1"
+    valueClass="bg-orange-600 text-white"
+    icon="mat:sort"
+    iconClass="text-white border border-white"
+    label="Servicios por cumplir"
+    value="67.4k" />
+  <vex-widget-quick-value-center
+    class="flex flex-1"
+    valueClass="bg-pink-600 text-white"
+    icon="mat:local_shipping"
+    iconClass="text-white border border-white"
+    label="Camiones en servicio"
+    value="67.4k" />
+  <vex-widget-quick-value-center
+    class="flex flex-1"
+    valueClass="bg-green-600 text-white"
+    icon="mat:local_shipping"
+    iconClass="text-white border border-white"
+    label="Camiones disponibles"
+    value="67.4k" />
+</div>
+<div class="grid grid-cols-2 w-full gap-x-5">
+  <vex-widget-table title="Servicios por Cumplir" [columns]="tableColumns" [data]="tableData" [pageSize]="5" />
+  <vex-widget-table title="Camiones Disponibles" [columns]="smallColumns" [data]="tableData" [pageSize]="5" />
+</div>

@@ -17,9 +17,22 @@ export class TokenService {
 
   setToken(accessToken: string): void {
     this.localStorageService.setItem('access_token', accessToken)
+    
+    console.log('Token guardado:', accessToken)
   }
 
   clearToken(): void {
     this.localStorageService.removeItem('access_token')
   }
+
+  setRole(role: string): void {
+    this.localStorageService.setItem('user_role', role)
+  }
+
+  getRole(): string | null {
+    return this.localStorageService.getItem('user_role')
+  }
+
+
+
 }

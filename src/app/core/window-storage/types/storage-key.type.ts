@@ -1,1 +1,1 @@
-export type LocalStorageKey = 'access_token'
+export type LocalStorageKey = 'access_token' | 'user_role'
