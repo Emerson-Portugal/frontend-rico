@@ -9,7 +9,7 @@ import { GetAllSuccessfulResponse, SuccessfulResponse } from '../models'
 })
 export class ApiService {
   private readonly milliSecondsUntilTimeout = 5_000
-  private readonly API_BASE_URL = `${environment.apiBaseUrl}/`
+  private readonly API_BASE_URL = `${environment.apiBaseUrl}/login/`
   private readonly http = inject(HttpClient)
 
   get<T>(path: string, params?: HttpParams): Observable<SuccessfulResponse<T>> {
