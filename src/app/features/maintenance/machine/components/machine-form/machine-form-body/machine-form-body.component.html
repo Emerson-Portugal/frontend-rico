@@ -1,0 +1,15 @@
+<div class="flex w-full card">
+    <form class="flex w-1/2 flex-col mx-5 py-5 gap-y-5" [formGroup]="form">
+      <app-custom-input
+        label="Código"
+        controlName="code"
+        [form]="form"
+        [disabled]="true"
+        />
+      <app-custom-input
+        label="Nombre"
+        controlName="name"
+        [form]="form"
+        />
+    </form>
+  </div>

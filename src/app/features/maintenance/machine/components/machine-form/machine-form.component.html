@@ -1,0 +1,20 @@
+<app-custom-layout
+  customClasses="flex flex-col gap-y-5 bg-transparent shadow-none"
+  title="Tipo de Cuenta"
+  [showActionButtons]="showActionButtons()"
+  [showBreadcrumbs]="showBreadcrumbs()"
+  [showToolbar]="showToolbar()"
+  [(editViewMode)]="editViewMode"
+  (saveElement)="onSaveElement()"
+  (deleteElement)="onDeleteElement()"
+>
+  @if (showHeader()) {
+    <app-machine-form-header/>
+  }
+  <app-machine-form-body
+    [class.disabled]="!canEdit()"
+    [(machine)]="machine"
+    [code]="code()"
+    [isCreate]="isCreate()"
+    />
+</app-custom-layout>

@@ -85,6 +85,10 @@ export const routes: VexRoutes = [
             path: 'products',
             loadChildren: () => import('./features/maintenance/product/product.routes').then(x => x.PRODUCT_ROUTES),
           },
+          {
+            path: 'machines',
+            loadChildren: () => import('./features/maintenance/machine/machine.routes').then(x => x.MACHINE_ROUTES),
+          },
         ],
       },
 
