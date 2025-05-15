@@ -24,7 +24,7 @@ export class OperatorLogListComponent {
   columns: TableColumn<OperatorLogDto>[] = [
     {
       label: 'Código',
-      property: 'codigo',
+      property: 'code',
       type: 'text',
       visible: true,
       cssClasses: ['font-medium'],

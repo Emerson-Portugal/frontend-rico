@@ -34,22 +34,31 @@
         content="Gestion de Supervisores"
         (click)="navigateTo('supervisor-management/dashboard')" />
       <app-custom-card
+        *ngIf="userRole === 'ADMIN'"
         class="flex"
         imageUrl="assets/img/menu/contabilidadv2.png"
-        content="Contabilidad"
-        (click)="navigateTo('accounting/dashboard')" />
+        content="Maquinas"
+        (click)="navigateTo('management/machines')" />
         <app-custom-card
+          *ngIf="userRole === 'ADMIN'"
           class="flex"
           imageUrl="assets/img/menu/facturav2.png"
-          content="Facturación"
-          (click)="navigateTo('invoice/dashboard')" />
+          content="Turnos"
+          (click)="navigateTo('management/shifts')" />
     </div>
     <div class="flex flex-wrap gap-x-16">
       <app-custom-card
+        *ngIf="userRole === 'ADMIN'"
         class="flex"
         imageUrl="assets/img/menu/configv2.png"
         content="Configuración"
-        (click)="navigateTo('config/dashboard')" />
+        (click)="navigateTo('management/dashboard')" />
+      <app-custom-card
+        *ngIf="userRole === 'ADMIN'"
+        class="flex"
+        imageUrl="assets/img/menu/configv2.png"
+        content="Productos"
+        (click)="navigateTo('management/products')" />
     </div>
   </div>
 </div>

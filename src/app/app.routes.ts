@@ -32,18 +32,18 @@ export const routes: VexRoutes = [
     canActivate: [tokenGuard],
     children: [
       {
-        path: 'accounting',
-        canActivate: [ roleGuard(['ADMIN'])],
+        path: 'operational-management',
+        canActivate: [roleGuard(['OPERADOR'])],
         children: [
           {
             path: 'dashboard',
-            loadChildren: () => import('./shared/pages/accounting/accounting.routes').then(x => x.ACCOUNTING_ROUTES),
+            loadChildren: () => import('./shared/pages/operational-management/operational-management.routes').then(x => x.OPERATIONAL_MANAGEMENT_ROUTES),
           },
         ],
       },
       {
         path: 'reviewer-management',
-        canActivate: [ roleGuard(['REVISADOR'])],
+        canActivate: [roleGuard(['REVISADOR'])],
         children: [
           {
             path: 'dashboard',
@@ -53,7 +53,7 @@ export const routes: VexRoutes = [
       },
       {
         path: 'supervisor-management',
-        canActivate: [ roleGuard(['SUPERVISOR'])],
+        canActivate: [roleGuard(['SUPERVISOR'])],
         children: [
           {
             path: 'dashboard',
@@ -63,30 +63,32 @@ export const routes: VexRoutes = [
         ],
       },
       {
-        path: 'config',
-        canActivate: [ roleGuard(['ADMIN'])],
-        children: [
-          {
-            path: 'dashboard',
-            loadChildren: () => import('./shared/pages/config/config.routes').then(x => x.CONFIG_ROUTES),
-          },
-        ],
-      },
-      {
         path: 'assistant-management',
-        canActivate: [ roleGuard(['AUXILIAR'])],
+        canActivate: [roleGuard(['AUXILIAR'])],
         children: [
           {
             path: 'dashboard',
             loadChildren: () => import('./shared/pages/assistant-management/assistant-management.routes').then(x => x.ASSISTANT_MANAGEMENT_ROUTES),
           },
-
+        ],
+      },
+      /*LOS MANTENIMIENTOS */
+      {
+        path: 'management',
+        canActivate: [roleGuard(['ADMIN'])],
+        children: [
           {
-            path: 'campaigns',
-            children: [],
+            path: 'dashboard',
+            loadChildren: () => import('./shared/pages/config/config.routes').then(x => x.CONFIG_ROUTES),
+          },
+          {
+            path: 'products',
+            loadChildren: () => import('./features/maintenance/product/product.routes').then(x => x.PRODUCT_ROUTES),
           },
         ],
       },
+
+
       {
         path: 'invoice',
         children: [
@@ -98,25 +100,15 @@ export const routes: VexRoutes = [
         ],
       },
       {
-        path: 'operational-management',
-        canActivate: [ roleGuard(['OPERADOR'])],
-        children: [
-          {
-            path: 'dashboard',
-            loadChildren: () => import('./shared/pages/operational-management/operational-management.routes').then(x => x.OPERATIONAL_MANAGEMENT_ROUTES),
-          },
-        ],
-      },
-      {
         path: ':prefix/reports',
         children: [
-        
+
         ],
       },
       {
         path: ':prefix/maintenance',
         children: [
-          
+
         ],
       },
       {

@@ -1,5 +1,5 @@
 export interface ProductDto {
-    codigo: string;
-    nombre: string;
-    tipo: string;
+    id : number;
+    code: string;
+    name: string;
 }

@@ -1,5 +1,4 @@
 export interface CreateProductDto {
-    codigo: string;
-    nombre: string;
-    tipo: string;
+    code: string;
+    name: string;
 }

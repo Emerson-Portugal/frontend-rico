@@ -14,19 +14,18 @@ export class AuthService {
   private readonly api = inject(ApiService)
 
   login(credentials: CredentialDto): Observable<SuccessfulResponse<TokenDto>> {
-    return this.api.post<TokenDto>('login', credentials).pipe(
+    return this.api.post<TokenDto>('login/login', credentials).pipe( // ✅ Usa 'login/login'
       tap(({ data }) => {
         this.tokenService.setToken(data.token)
-        this.tokenService.setRole(data.user.role) // Guarda el rol
+        this.tokenService.setRole(data.user.role)
       })
     )
   }
-  
+
+
 
   getAccountSession(): Observable<SuccessfulResponse<AccountDto>> {
-    return this.api.post<AccountDto>('profile', {});
+    return this.api.post<AccountDto>('login/profile', {});
   }
-  
-  
   
 }

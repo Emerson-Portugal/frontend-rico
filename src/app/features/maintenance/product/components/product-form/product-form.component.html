@@ -1,1 +1,20 @@
-<p>product-form works!</p>
+<app-custom-layout
+  customClasses="flex flex-col gap-y-5 bg-transparent shadow-none"
+  title="Tipo de Cuenta"
+  [showActionButtons]="showActionButtons()"
+  [showBreadcrumbs]="showBreadcrumbs()"
+  [showToolbar]="showToolbar()"
+  [(editViewMode)]="editViewMode"
+  (saveElement)="onSaveElement()"
+  (deleteElement)="onDeleteElement()"
+>
+  @if (showHeader()) {
+    <app-product-header/>
+  }
+  <app-product-body
+    [class.disabled]="!canEdit()"
+    [(product)]="product"
+    [code]="code()"
+    [isCreate]="isCreate()"
+    />
+</app-custom-layout>
