@@ -1,6 +1,6 @@
 <app-custom-layout
   customClasses="flex flex-col gap-y-5 bg-transparent shadow-none"
-  title="Tipos de Productos"
+  title="Tipo de Maquinas"
   [showActionButtons]="showActionButtons()"
   [showBreadcrumbs]="showBreadcrumbs()"
   [showToolbar]="showToolbar()"
@@ -9,12 +9,13 @@
   (deleteElement)="onDeleteElement()"
 >
   @if (showHeader()) {
-    <app-product-header/>
+    <app-shift-form-header/>
   }
-  <app-product-body
+  <app-shift-form-body
     [class.disabled]="!canEdit()"
-    [(product)]="product"
+    [(shifts)]="shifts"
     [code]="code()"
     [isCreate]="isCreate()"
     />
 </app-custom-layout>
+

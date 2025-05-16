@@ -1,0 +1,48 @@
+<div
+  class="flex w-full"
+  [class.pointer-events-none]="disabled() || readonly()"
+  [class.opacity-70]="disabled() || readonly()"
+  [class]="inputClass()">
+  <mat-form-field class="flex w-full" subscriptSizing="dynamic">
+    @if (label()) {
+      <mat-label class="select-none" [class]="disabled() || readonly() ? 'pointer-events-none' : ''">
+        {{ label() }}
+      </mat-label>
+    }
+    @if (icon()) {
+      <mat-icon
+        matPrefix
+        @scaleIn
+        color="primary"
+        [svgIcon]="icon()!"
+        class="mr-2"
+      ></mat-icon>
+    }
+
+    @if (form() && formControlName()) {
+      <div class="flex" [formGroup]="form()">
+        <input
+          matInput
+          [formControlName]="formControlName()"
+          [type]="type()"
+          [placeholder]="placeHolder() ?? ''"
+          [readonly]="readonly()"
+          [mask]="timeMask()"
+          [dropSpecialCharacters]="false"
+        />
+      </div>
+    } @else {
+      <input
+        matInput
+        [(ngModel)]="value"
+        [type]="type()"
+        [placeholder]="placeHolder() ?? ''"
+        [disabled]="disabled()"
+        [readonly]="readonly()"
+        [required]="required()"
+        [mask]="timeMask()"
+        [dropSpecialCharacters]="false"
+      />
+    }
+  </mat-form-field>
+</div>

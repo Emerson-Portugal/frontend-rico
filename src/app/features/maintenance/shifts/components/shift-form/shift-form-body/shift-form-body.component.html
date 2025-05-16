@@ -1,0 +1,29 @@
+<div class="flex w-full card">
+    <form class="flex w-1/2 flex-col mx-5 py-5 gap-y-5" [formGroup]="form">
+      <app-custom-input
+        label="Código"
+        controlName="code"
+        [form]="form"
+        [disabled]="true"
+        />
+      <app-custom-select
+        label="Tuno"
+        controlName="shift"
+        [form]="form"
+        [dropDownItems]="ShiftTypeEnum" />
+        
+      <app-custom-hour
+        [form]="form"
+        controlName="start_time"
+        label="Hora de inicio"
+        icon="mat:access_time"
+        inputClass="mt-2"/>
+
+      <app-custom-hour
+        [form]="form"
+        controlName="end_time"
+        label="Hora de fin"
+        icon="mat:access_time"
+        inputClass="mt-2"/>
+    </form>
+  </div>

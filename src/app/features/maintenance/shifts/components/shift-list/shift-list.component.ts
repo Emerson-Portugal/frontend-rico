@@ -1,23 +1,24 @@
 import { Component, inject, input, output, signal } from '@angular/core'
-import { MachineDto } from '../../models'
+import { ShiftDto } from '../../models'
 import { CustomBehaviourEnum } from '@shared/constants'
 import { Paginator } from '@shared/models'
-import { MachineService } from '../../services'
+import { ShiftService } from '../../services'
 import { TableColumn } from '@vex/interfaces/table-column.interface'
 import { HttpParams } from '@angular/common/http'
 import { CustomTableComponent } from '@shared/components'
+
 @Component({
-  selector: 'app-machine-list',
+  selector: 'app-shift-list',
   standalone: true,
   imports: [CustomTableComponent],
-  templateUrl: './machine-list.component.html',
+  templateUrl: './shift-list.component.html',
   styles: ``
 })
-export class MachineListComponent {
+export class ShiftListComponent {
 
-  private readonly machineService = inject(MachineService)
-  title = 'Tipo de Maquina'
-  columns: TableColumn<MachineDto>[] = [
+  private readonly shiftService = inject(ShiftService)
+  title = 'Tipo de Turno'
+  columns: TableColumn<ShiftDto>[] = [
     {
       label: 'ID',
       property: 'id',
@@ -33,8 +34,20 @@ export class MachineListComponent {
       cssClasses: ['font-medium'],
     },
     {
-      label: 'Nombre',
-      property: 'name',
+      label: 'Turno',
+      property: 'shift',
+      type: 'text',
+      visible: true,
+    },
+    {
+      label: 'Hora Inicio',
+      property: 'start_time',
+      type: 'text',
+      visible: true,
+    },
+    {
+      label: 'Hora Fin',
+      property: 'end_time',
       type: 'text',
       visible: true,
     },
@@ -45,9 +58,9 @@ export class MachineListComponent {
     totalCount: 0,
     totalPages: 0,
   })
-  machines = signal<MachineDto[]>([])
+  shifts = signal<ShiftDto[]>([])
   getSelectedBehaviour = input<CustomBehaviourEnum>(CustomBehaviourEnum.KEEP_BEHAVIOUR)
-  getSelected = output<MachineDto>()
+  getSelected = output<ShiftDto>()
   createBehaviour = input<CustomBehaviourEnum>(CustomBehaviourEnum.KEEP_BEHAVIOUR)
   create = output<void>()
 
@@ -60,12 +73,12 @@ export class MachineListComponent {
     const params = new HttpParams()
       .set('page', paginator.currentPage)
       .set('pageSize', paginator.pageSize)
-      .set('name', searchTerm)
+      .set('shift', searchTerm)
 
 
-    this.machineService.getAll(params).subscribe({
+    this.shiftService.getAll(params).subscribe({
       next: ({ data }) => {
-        this.machines.set(data.results)
+        this.shifts.set(data.results)
         this.paginator.set({
           currentPage: data.pageNumber,
           pageSize: data.pageSize,
