@@ -31,47 +31,22 @@ export const routes: VexRoutes = [
     component: LayoutComponent,
     canActivate: [tokenGuard],
     children: [
+      /*Maquinas  */
       {
-        path: 'operational-management',
-        canActivate: [roleGuard(['OPERADOR'])],
+        path: 'machines',
+        canActivate: [roleGuard(['OPERADOR', 'REVISADOR', 'SUPERVISOR', 'AUXILIAR'])],
         children: [
           {
             path: 'dashboard',
             loadChildren: () => import('./shared/pages/operational-management/operational-management.routes').then(x => x.OPERATIONAL_MANAGEMENT_ROUTES),
           },
-        ],
-      },
-      {
-        path: 'reviewer-management',
-        canActivate: [roleGuard(['REVISADOR'])],
-        children: [
           {
-            path: 'dashboard',
-            loadChildren: () => import('./shared/pages/reviewer-management/reviewer-management.routes').then(x => x.REVIEWER_MANAGEMENT_ROUTES),
+            path: 'R145',
+            loadChildren: () => import('./features/machine-R145/machine-R145.routes').then(x => x.MACHINE_R145_ROUTES),
           },
         ],
       },
-      {
-        path: 'supervisor-management',
-        canActivate: [roleGuard(['SUPERVISOR'])],
-        children: [
-          {
-            path: 'dashboard',
-            loadChildren: () => import('./shared/pages/supervisor-management/supervisor-management.routes').then(x => x.SUPERVISOR_MANAGEMENT_ROUTES),
-          },
 
-        ],
-      },
-      {
-        path: 'assistant-management',
-        canActivate: [roleGuard(['AUXILIAR'])],
-        children: [
-          {
-            path: 'dashboard',
-            loadChildren: () => import('./shared/pages/assistant-management/assistant-management.routes').then(x => x.ASSISTANT_MANAGEMENT_ROUTES),
-          },
-        ],
-      },
       /*LOS MANTENIMIENTOS */
       {
         path: 'management',
