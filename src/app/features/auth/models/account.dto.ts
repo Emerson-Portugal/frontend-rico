@@ -1,4 +1,4 @@
 export interface AccountDto {
-  rol: string
+  role: string
   username: string
 }

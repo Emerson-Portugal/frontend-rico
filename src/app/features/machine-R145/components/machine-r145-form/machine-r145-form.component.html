@@ -1,1 +1,20 @@
-<p>machine-r145-form works!</p>
+<app-custom-layout
+  customClasses="flex flex-col gap-y-5 bg-transparent shadow-none"
+  title="Maquina R145"
+  [showActionButtons]="showActionButtons()"
+  [showBreadcrumbs]="showBreadcrumbs()"
+  [showToolbar]="showToolbar()"
+  [(editViewMode)]="editViewMode"
+  (saveElement)="onSaveElement()"
+  (deleteElement)="onDeleteElement()">
+  @if (showHeader()) {
+    <app-machine-r145-form-header />
+  }
+  <app-machine-r145-form-body
+    [class.disabled]="!canEdit()"
+    [(machineR145)]="machineR145"
+    [machineR145Data]="machineR145Data()"
+    [code]="code()"
+    [isCreate]="isCreate()" />
+
+</app-custom-layout>

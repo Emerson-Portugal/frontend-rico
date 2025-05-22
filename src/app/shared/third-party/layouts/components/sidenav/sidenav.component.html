@@ -83,7 +83,7 @@
         src="../../../../assets/img/avatars/1.jpg" /> -->
       <div class="vex-sidenav-user__content flex-auto">
         <div class="vex-sidenav-user__title">{{ (account$ | async)?.username ?? "Sin nombre" }}</div>
-        <div class="vex-sidenav-user__subtitle">{{ (account$ | async)?.rol ?? "Sin rol" }}</div>
+        <div class="vex-sidenav-user__subtitle">{{ (account$ | async)?.role ?? "Sin rol" }}</div>
       </div>
       <mat-icon class="vex-sidenav-user__dropdown-icon flex-none" svgIcon="mat:arrow_drop_down"></mat-icon>
     </div>
