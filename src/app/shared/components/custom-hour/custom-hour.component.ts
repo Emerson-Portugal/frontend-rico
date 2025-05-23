@@ -1,40 +1,77 @@
-import { Component, computed, input, model } from '@angular/core';
-import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { NgxMaskDirective } from 'ngx-mask';
-import { SelectInputValueDirective } from '@shared/directives';
-import { BasicHTMLInputTypeAttribute } from '@shared/constants';
-import { scaleIn400ms } from '@vex/animations/scale-in.animation'
-import { fadeInUp400ms } from '@vex/animations/fade-in-up.animation';
-import { fadeInRight400ms } from '@vex/animations/fade-in-right.animation';
+import {
+  Component,
+  input,
+  effect,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+} from '@angular/core'
+import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms'
+import { MatFormFieldModule } from '@angular/material/form-field'
+import { MatInputModule } from '@angular/material/input'
+import { CommonModule } from '@angular/common'
 
 @Component({
   selector: 'app-custom-hour',
   standalone: true,
   imports: [
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    MatIconModule,
+    MatFormFieldModule,
     MatInputModule,
-    NgxMaskDirective,
   ],
-    animations: [scaleIn400ms, fadeInUp400ms, fadeInRight400ms],
-  
-  templateUrl: './custom-hour.component.html'
+  templateUrl: './custom-hour.component.html',
 })
-export class CustomHourComponent {
+export class CustomHourComponent implements AfterViewInit {
+  @ViewChild('inputRef') inputRef!: ElementRef<HTMLInputElement>;
+
   inputClass = input<string | null>(null, { alias: 'inputClass' });
   disabled = input<boolean>(false);
   readonly = input<boolean>(false);
-  required = input<boolean>(false);
-  icon  = input('');
-  placeHolder = input<string | null>(null, { alias: 'placeholder' });
   label = input<string | null>(null);
-  type = input<BasicHTMLInputTypeAttribute>('text');
-  form = input<FormGroup>(new FormGroup({}));
-  formControlName = input<string>('', { alias: 'controlName' });
-  value = model<string>();
+  placeholder = input<string>('HH:mm');
 
-  readonly timeMask = computed(() => 'Hh:m0'); // HH:mm mask
+  form = input.required<FormGroup>();
+  formControlName = input.required<string>({ alias: 'controlName' });
+
+  ngAfterViewInit(): void {
+    const control = this.form().get(this.formControlName());
+    if (!control) return;
+
+    const inputEl = this.inputRef.nativeElement;
+
+    inputEl.addEventListener('input', () => {
+      let raw = inputEl.value.replace(/[^\d]/g, '');
+
+      if (raw.length <= 2) {
+        inputEl.value = raw;
+        control.setValue(raw, { emitEvent: false });
+        return;
+      }
+
+      if (raw.length > 4) raw = raw.substring(0, 4);
+
+      const hh = raw.substring(0, 2);
+      const mm = raw.substring(2);
+
+      const formatted = `${hh}:${mm}`;
+      inputEl.value = formatted;
+      control.setValue(formatted, { emitEvent: false });
+    });
+
+    // Al perder el foco, asegura el formato HH:MM con ceros
+    inputEl.addEventListener('blur', () => {
+      const val = control.value;
+      if (typeof val !== 'string') return;
+
+      const [h = '', m = ''] = val.split(':');
+      const hh = h.padStart(2, '0');
+      const mm = m.padStart(2, '0');
+
+      const final = `${hh}:${mm}`;
+      inputEl.value = final;
+      control.setValue(final, { emitEvent: false });
+    });
+  }
 }

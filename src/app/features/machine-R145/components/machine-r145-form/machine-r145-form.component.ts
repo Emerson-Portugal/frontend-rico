@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input, model, signal } from '@angular/core'
+import { Component, computed, effect, inject, input, model, signal, viewChild } from '@angular/core'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { ActivatedRoute, Router } from '@angular/router'
 import { CreateMachineR145Dto, MachineR145Dto, UpdateMachineR145Dto } from '../../models'
@@ -8,7 +8,6 @@ import { CustomLayoutComponent } from '@shared/components'
 import { MachineR145FormHeaderComponent } from './machine-r145-form-header/machine-r145-form-header.component'
 import { MachineR145FormBodyComponent } from './machine-r145-form-body/machine-r145-form-body.component'
 import { NEW_GENERAL } from '../../constants'
-import { MachineFormHeaderComponent } from "../../../maintenance/machine/components/machine-form/machine-form-header/machine-form-header.component";
 
 
 @Component({
@@ -18,7 +17,7 @@ import { MachineFormHeaderComponent } from "../../../maintenance/machine/compone
     CustomLayoutComponent,
     MachineR145FormBodyComponent,
     MachineR145FormHeaderComponent,
-    MachineFormHeaderComponent
+
 ],
   templateUrl: './machine-r145-form.component.html',
   styles: ``
@@ -43,6 +42,7 @@ export class MachineR145FormComponent {
   editViewMode = model<EditViewModeEnum>(EditViewModeEnum.VIEW_ONLY)
   isCreate = computed(() => !this.code())
   canEdit = computed(() => this.editViewMode() !== EditViewModeEnum.VIEW_ONLY)
+  child = viewChild(MachineR145FormBodyComponent)
 
   private fetchCustomerEffect = effect(() => {
     if (!this.code()) return
@@ -103,9 +103,9 @@ export class MachineR145FormComponent {
 
     if (this.isCreate()) {
       this.machineR145Service.create(machineR145 as CreateMachineR145Dto).subscribe({
-        next: ({ data: code }) => {
-          this.snackBar.open('Se creo correctamente', 'OK', { duration: 3_000 })
-          this.onCleanUp(code)
+        next: () => {
+          this.snackBar.open('El producto se creo correctamente', 'OK', { duration: 3_000 })
+          this.router.navigate(['../'], { relativeTo: this.route })
         },
       })
       return
@@ -113,7 +113,7 @@ export class MachineR145FormComponent {
     this.machineR145Service.update(this.code(), machineR145).subscribe({
       next: () => {
         this.snackBar.open('Se actualizo correctamente', 'OK', { duration: 3_000 })
-        this.onCleanUp()
+        this.router.navigate(['../../'], { relativeTo: this.route })
       },
     })
   }
@@ -125,15 +125,6 @@ export class MachineR145FormComponent {
         this.router.navigate(['../../'], { relativeTo: this.route })
       },
     })
-  }
-
-  onCleanUp(newCode?: string) {
-    if (this.isCreate() && newCode) {
-      this.router.navigate(['../', newCode, 'update'], { relativeTo: this.route })
-      return
-    }
-
-    this.editViewMode.set(EditViewModeEnum.VIEW_ONLY)
   }
 
 

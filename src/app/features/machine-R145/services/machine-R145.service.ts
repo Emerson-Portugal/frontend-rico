@@ -24,7 +24,7 @@ export class MachineR145Service {
   }
 
   update(code: string, generalFee: UpdateMachineR145Dto) {
-    return this.api.put(`${this.url}/${code}`, generalFee)
+    return this.api.put(`${this.url}/${code}/`, generalFee)
   }
 
   delete(code: string) {

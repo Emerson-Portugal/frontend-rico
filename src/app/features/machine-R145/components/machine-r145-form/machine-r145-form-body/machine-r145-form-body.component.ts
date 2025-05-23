@@ -69,7 +69,7 @@ export class MachineR145FormBodyComponent implements AfterViewInit, OnDestroy {
     extension_dia: ['', [Validators.required]],
     extension_dmp: ['', [Validators.required]],
     extension_hora: ['', [Validators.required]],
-    vencimiento: ['', [Validators.required]],
+    vencimiento: [new Date(), [Validators.required]],
 
     golpe : [0, [Validators.required, Validators.pattern(RegexPatterns.DECIMAL_NUMBER)]],
     recor : ['', [Validators.required]],
@@ -124,7 +124,7 @@ export class MachineR145FormBodyComponent implements AfterViewInit, OnDestroy {
       extension_dia: (machineR145Data.extension_dia),
       extension_dmp: machineR145Data.extension_dmp,
       extension_hora: machineR145Data.extension_hora,
-      vencimiento: machineR145Data.vencimiento,
+      vencimiento: DateUtil.toDate(machineR145Data.vencimiento),
       peso: (machineR145Data.peso),
 
       golpe: machineR145Data.golpe,
@@ -159,7 +159,7 @@ export class MachineR145FormBodyComponent implements AfterViewInit, OnDestroy {
         extension_dia: this.form.get('extension_dia')?.value ?? '',
         extension_dmp: this.form.get('extension_dmp')?.value ?? '',
         extension_hora: this.form.get('extension_hora')?.value ?? '',
-        vencimiento: this.form.get('vencimiento')?.value ?? '',
+        vencimiento:  DateUtil.toString(this.form.get('vencimiento')?.value),
 
         golpe: this.form.get('golpe')?.value ?? 0,
         recor: this.form.get('recor')?.value ?? '',
