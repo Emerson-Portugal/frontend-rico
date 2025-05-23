@@ -24,6 +24,10 @@ import { MachineDto } from '@features/maintenance/machine/models'
 import { MachineService } from '@features/maintenance/machine/services'
 
 
+import { CommonModule } from '@angular/common'  // <-- Agregar importación de CommonModule
+import { TokenService } from '@core/token/services/token.service'
+
+
 @Component({
   selector: 'app-machine-r145-form-body',
   standalone: true,
@@ -34,7 +38,8 @@ import { MachineService } from '@features/maintenance/machine/services'
     CustomSelectComponent,
     CustomDateInputComponent,
     CustomTextareaComponent,
-    CustomHourComponent
+    CustomHourComponent,
+    CommonModule
   ],
   templateUrl: './machine-r145-form-body.component.html',
   styles: ``
@@ -96,6 +101,17 @@ export class MachineR145FormBodyComponent implements AfterViewInit, OnDestroy {
 
   valueStatusSelect = EnumUtil.toCustomSelectContent(YesNoEnum)
 
+  //#region TOKEN
+
+  userRole: string | null = null
+
+  constructor(private tokenService: TokenService) {}
+
+  ngOnInit(): void {
+    // Obtener el rol del usuario desde el token
+    this.userRole = this.tokenService.getRole()
+  }
+  //#endregion
 
   private updateFormValuesEffect = effect(() => {
     if (this.isCreate()) return

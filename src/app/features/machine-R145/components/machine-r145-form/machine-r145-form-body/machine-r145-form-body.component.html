@@ -31,9 +31,9 @@
               <div class="grid grid-cols-5 gap-4">
                 <app-custom-input label="Golpe" controlName="golpe" mask="number" [form]="form" />
                 <app-custom-input label="Recorte" controlName="recor" [form]="form" />
-                <app-custom-select label="Peso" controlName="peso" [form]="form" [dropDownItems]="valueStatusSelect" />
-                <app-custom-select label="Vacio" controlName="vacio" [form]="form" [dropDownItems]="valueStatusSelect" />
-                <app-custom-select label="D.M" controlName="dm" [form]="form" [dropDownItems]="valueStatusSelect" />
+                <app-custom-select label="Peso" controlName="peso" [form]="form" [dropDownItems]="valueStatusSelect" *ngIf="userRole !== 'OPERADOR' && userRole !== 'AUXILIAR' " />
+                <app-custom-select label="Vacio" controlName="vacio" [form]="form" [dropDownItems]="valueStatusSelect" *ngIf="userRole !== 'OPERADOR' && userRole !== 'AUXILIAR'" />
+                <app-custom-select label="D.M" controlName="dm" [form]="form" [dropDownItems]="valueStatusSelect" *ngIf="userRole !== 'OPERADOR' && userRole !== 'REVISADOR'" />
 
               </div>
             </div>

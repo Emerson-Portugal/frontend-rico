@@ -87,7 +87,6 @@ export class MachineR145FormComponent {
 
         })
 
-        console.log('machineR145 Demo', this.machineR145())
       },
     })
   }

@@ -32,7 +32,59 @@ export class MachineR145ListComponent {
       type: 'text',
       visible: true,
       cssClasses: ['font-medium'],
-    }
+    },
+    {
+      label: 'Fecha',
+      property: 'fecha',
+      type: 'text',
+      visible: true,
+      cssClasses: ['font-medium'],
+    },
+    {
+      label: 'Operario',
+      property: 'operario.username',
+      type: 'text',
+      visible: true,
+      cssClasses: ['font-medium'],
+    },
+    {
+      label: 'F. Operario',
+      property: 'fecha_operario',
+      type: 'text',
+      visible: true,
+      cssClasses: ['font-medium'],
+      pipe: 'date'
+    },
+    {
+      label: 'Revisor',
+      property: 'revisador.username',
+      type: 'text',
+      visible: true,
+      cssClasses: ['font-medium'],
+    },
+    {
+      label: 'F. Revisor',
+      property: 'fecha_revisador',
+      type: 'text',
+      visible: true,
+      cssClasses: ['font-medium'],
+      pipe: 'date'
+    },
+    {
+      label: 'Auxiliar',
+      property: 'auxiliar.username',
+      type: 'text',
+      visible: true,
+      cssClasses: ['font-medium'],
+    },
+    {
+      label: 'F. Auxiliar',
+      property: 'fecha_auxiliar',
+      type: 'text',
+      visible: true,
+      cssClasses: ['font-medium'],
+      pipe: 'date'
+    },
   ]
   paginator = signal<Paginator>({
     currentPage: 1,
