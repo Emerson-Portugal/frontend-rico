@@ -9,13 +9,15 @@
         {{ label() }}
       </mat-label>
     }
-    <textarea
-      matInput
-      [class]="resizable() ? 'resize-y' : 'resize-none'"
-      [attr.rows]="rows()"
-      [attr.cols]="cols()"
-      [attr.maxLength]="maxLength()"
-      [formControlName]="formControlName()"
-      [placeholder]="placeHolder() ?? ''"></textarea>
+  <textarea
+    matInput
+    cdkTextareaAutosize
+    [cdkAutosizeMinRows]="5"
+    [cdkAutosizeMaxRows]="10"
+    class="text-sm resize-none"
+    [formControlName]="formControlName()"
+    [attr.maxLength]="maxLength()"
+    [placeholder]="placeHolder() ?? ''"></textarea>
+
   </mat-form-field>
 </div>

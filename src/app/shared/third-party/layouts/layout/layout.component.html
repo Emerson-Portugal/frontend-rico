@@ -3,27 +3,37 @@
 
   <vex-search></vex-search>
 
+  <!-- BOTÓN HAMBURGUESA SOLO EN MÓVIL -->
+  <div *ngIf="isMobile$ | async" class="fixed top-4 left-4 z-[1001]">
+    <button (click)="sidenav.toggle()" aria-label="Toggle sidenav"
+            class="bg-gray-200 rounded-lg p-3 shadow-md flex items-center justify-center text-gray-800 hover:bg-gray-300 transition">
+      <!-- Ícono hamburguesa (Heroicons) -->
+      <svg xmlns="http://www.w3.org/2000/svg" 
+          fill="none" viewBox="0 0 24 24" stroke-width="1.5" 
+          stroke="currentColor" class="w-7 h-7">
+        <path stroke-linecap="round" stroke-linejoin="round" 
+              d="M3.75 5.25h16.5m-16.5 6h16.5m-16.5 6h16.5" />
+      </svg>
+    </button>
+  </div>
+
+
+
+
+
   <mat-sidenav-container class="vex-layout-sidenav-container">
-    <mat-sidenav
-      (closedStart)="onSidenavClosed()"
-      [disableClose]="!!(sidenavDisableClose$ | async)"
-      [fixedInViewport]="!!(sidenavFixedInViewport$ | async)"
-      [mode]="(sidenavMode$ | async) ?? 'side'"
+    <mat-sidenav #sidenav (closedStart)="onSidenavClosed()" [disableClose]="!!(sidenavDisableClose$ | async)"
+      [fixedInViewport]="!!(sidenavFixedInViewport$ | async)" [mode]="(sidenavMode$ | async) ?? 'side'"
       [opened]="!!(sidenavOpen$ | async)">
       <vex-sidenav [collapsed]="!!(sidenavCollapsed$ | async)"></vex-sidenav>
     </mat-sidenav>
 
-    <mat-sidenav
-      (closedStart)="onQuickpanelClosed()"
-      [opened]="!!(quickpanelOpen$ | async)"
-      class="vex-layout-quickpanel"
-      mode="over"
-      position="end">
+    <mat-sidenav (closedStart)="onQuickpanelClosed()" [opened]="!!(quickpanelOpen$ | async)"
+      class="vex-layout-quickpanel" mode="over" position="end">
       <vex-quickpanel></vex-quickpanel>
     </mat-sidenav>
 
-    <mat-sidenav-content
-      class="vex-layout-sidenav-content"
+    <mat-sidenav-content class="vex-layout-sidenav-content"
       [style.margin-left]="(sidenavOpen$ | async) ? '350px !important' : '0px !important'">
       <main class="vex-layout-content">
         <router-outlet></router-outlet>

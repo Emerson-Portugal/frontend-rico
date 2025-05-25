@@ -22,11 +22,6 @@ export const routes: VexRoutes = [
     children: HOME_ROUTES,
   },
   {
-    path: 'home',
-    canActivate: [tokenGuard],
-    children: HOME_ROUTES,
-  },
-  {
     path: '',
     component: LayoutComponent,
     canActivate: [tokenGuard],

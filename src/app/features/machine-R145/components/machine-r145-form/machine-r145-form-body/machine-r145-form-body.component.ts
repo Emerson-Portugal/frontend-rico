@@ -1,4 +1,4 @@
-import { Subscription } from 'rxjs'
+import { map, Observable, Subscription } from 'rxjs'
 import { AfterViewInit, Component, effect, inject, input, model, OnDestroy, OnInit, signal } from '@angular/core'
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { CustomInputComponent, CustomInputModalComponent, CustomSelectComponent, CustomTextareaComponent } from '@shared/components'
@@ -26,6 +26,7 @@ import { MachineService } from '@features/maintenance/machine/services'
 
 import { CommonModule } from '@angular/common'  // <-- Agregar importación de CommonModule
 import { TokenService } from '@core/token/services/token.service'
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
 
 
 @Component({
@@ -50,6 +51,7 @@ export class MachineR145FormBodyComponent implements AfterViewInit, OnDestroy {
   private readonly shiftService = inject(ShiftService)
   private readonly productService = inject(ProductService)
   private readonly machineService = inject(MachineService)
+
 
   formSubscription: Subscription | null = null
   sideEffectSubscriptions: Subscription[] = []
@@ -100,6 +102,11 @@ export class MachineR145FormBodyComponent implements AfterViewInit, OnDestroy {
   MachineModalComponent = MachineModalComponent
 
   valueStatusSelect = EnumUtil.toCustomSelectContent(YesNoEnum)
+
+
+
+
+
 
   //#region TOKEN
 

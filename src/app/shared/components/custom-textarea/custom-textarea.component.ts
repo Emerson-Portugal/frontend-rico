@@ -1,6 +1,8 @@
 import { Component, input } from '@angular/core'
 import { FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatInputModule } from '@angular/material/input'
+import { TextFieldModule } from '@angular/cdk/text-field';
+
 
 @Component({
   selector: 'app-custom-textarea',
@@ -9,6 +11,7 @@ import { MatInputModule } from '@angular/material/input'
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
+    TextFieldModule 
   ],
   templateUrl: './custom-textarea.component.html',
 })

@@ -1,48 +1,35 @@
-<div class="relative w-full h-full">
-  <img
-    class="absolute top-1/2 left-1/2 w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 z-0"
-    src="assets/vid/sert.png" />
-  <div class="flex flex-col justify-center h-[100vh] items-center gap-y-4 relative z-10">
-    <div class="flex flex-wrap">
-      <img class="h-20" src="assets/img/logo/logo.png" />
-    </div>
-    <div class="flex flex-wrap gap-x-16">
-      <app-custom-card
-      *ngIf="userRole === 'OPERADOR' || userRole === 'ADMIN' || userRole === 'SUPERVISOR' || userRole === 'REVISADOR' || userRole === 'AUXILIAR'"
-        class="flex"
-        imageUrl="assets/img/menu/obrero.png"
-        content="Maquina R145"
-        (click)="navigateTo('machines/R145/')" />
+<div class="relative w-full h-screen overflow-hidden">
+  <!-- Imagen de fondo opcional -->
+  <img src="assets/vid/sert.png" class="absolute inset-0 w-full h-full object-cover z-0" alt="Fondo" />
 
-    </div>
-    <div class="flex flex-wrap gap-x-16">
+  <!-- Contenido centrado -->
+  <div class="relative z-10 flex flex-col items-center justify-center h-full px-4 gap-y-10">
 
+    <!-- Logo (opcional, descomenta si lo quieres) -->
+    <!-- <img src="assets/img/logo/logo.png" class="h-20" alt="Logo" /> -->
+
+    <!-- Fila 1: Maquina R145 -->
+    <div class="flex flex-wrap justify-center gap-4 md:gap-10 w-full max-w-5xl">
       <app-custom-card
-        *ngIf="userRole === 'ADMIN'"
-        class="flex"
-        imageUrl="assets/img/menu/contabilidadv2.png"
-        content="Maquinas"
+        *ngIf="userRole === 'OPERADOR' || userRole === 'ADMIN' || userRole === 'SUPERVISOR' || userRole === 'REVISADOR' || userRole === 'AUXILIAR'"
+        imageUrl="assets/img/menu/obrero.png" content="Maquina R145" (click)="navigateTo('machines/R145/')" />
+    </div>
+
+    <!-- Fila 2: Maquinas y Turnos -->
+    <div class="flex flex-wrap justify-center gap-4 md:gap-10 w-full max-w-5xl">
+      <app-custom-card *ngIf="userRole === 'ADMIN'" imageUrl="assets/img/menu/contabilidadv2.png" content="Maquinas"
         (click)="navigateTo('management/machines')" />
-        <app-custom-card
-          *ngIf="userRole === 'ADMIN'"
-          class="flex"
-          imageUrl="assets/img/menu/facturav2.png"
-          content="Turnos"
-          (click)="navigateTo('management/shifts')" />
+      <app-custom-card *ngIf="userRole === 'ADMIN'" imageUrl="assets/img/menu/facturav2.png" content="Turnos"
+        (click)="navigateTo('management/shifts')" />
     </div>
-    <div class="flex flex-wrap gap-x-16">
-      <app-custom-card
-        *ngIf="userRole === 'ADMIN'"
-        class="flex"
-        imageUrl="assets/img/menu/configv2.png"
-        content="Configuración"
+
+    <!-- Fila 3: Configuración y Productos -->
+    <div class="flex flex-wrap justify-center gap-4 md:gap-10 w-full max-w-5xl">
+      <app-custom-card *ngIf="userRole === 'ADMIN'" imageUrl="assets/img/menu/configv2.png" content="Configuración"
         (click)="navigateTo('management/dashboard')" />
-      <app-custom-card
-        *ngIf="userRole === 'ADMIN'"
-        class="flex"
-        imageUrl="assets/img/menu/configv2.png"
-        content="Productos"
+      <app-custom-card *ngIf="userRole === 'ADMIN'" imageUrl="assets/img/menu/configv2.png" content="Productos"
         (click)="navigateTo('management/products')" />
     </div>
+
   </div>
 </div>

@@ -1,83 +1,72 @@
-<div class="w-full mx-auto bg-white mt-3 border">
-  <div class="px-6 py-4 flex flex-col border-black">
-    <form class="flex flex-col mx-5 py-5 gap-y-5" [formGroup]="form">
-      <div class="flex w-full gap-x-5">
+<div class="px-6 py-4 flex flex-col border-black">
+  <form class="flex flex-col mx-5 py-5 gap-y-5" [formGroup]="form">
+    <div class="flex flex-col md:flex-row w-full gap-x-0 md:gap-x-5 gap-y-5 md:gap-y-0">
 
-        <div class="w-1/2 flex flex-col gap-y-5">
+      <div class="w-full md:w-1/2 flex flex-col gap-y-5">
 
-          <div class="grid grid-cols-2 gap-4">
-            <app-custom-input label="Codigo de Registro" controlName="code" [form]="form" />
-            <app-custom-date-input label="Fecha" controlName="fecha" [form]="form" />
-          </div>
-
-          <div class="grid grid-cols-3 gap-4">
-            <app-custom-input-modal label="Producto" controlName="productoName" [form]="form" [modal]="ProductModalComponent" (getModalResult)="onProductModalResult($event)" />
-            <app-custom-input-modal label="Turno" controlName="turnoName" [form]="form" [modal]="ShiftModalComponent" (getModalResult)="onShiftModalResult($event)" />
-            <app-custom-input-modal label="Maquina" controlName="maquinaName" [form]="form" [modal]="MachineModalComponent" (getModalResult)="onMachineModalResult($event)" />
-          </div>
-        
-          <div class="grid grid-cols-3 gap-4">
-            <app-custom-hour label="H. Inicio" controlName="hora_inicio" [form]="form" />
-            <app-custom-hour label="H. Fin" controlName="hora_fin" [form]="form" />
-            <app-custom-input label="Unid/Kilos" controlName="unidad_kilos" [form]="form" />
-
-          </div>
-
-
-
-          <div class="flex w-full card border border-gray-300 lg">
-            <div class="flex w-full flex-col gap-y-5 p-5">
-              <div class="flex w-full">Evaluacion</div>
-              <div class="grid grid-cols-5 gap-4">
-                <app-custom-input label="Golpe" controlName="golpe" mask="number" [form]="form" />
-                <app-custom-input label="Recorte" controlName="recor" [form]="form" />
-                <app-custom-select label="Peso" controlName="peso" [form]="form" [dropDownItems]="valueStatusSelect" *ngIf="userRole !== 'OPERADOR' && userRole !== 'AUXILIAR' " />
-                <app-custom-select label="Vacio" controlName="vacio" [form]="form" [dropDownItems]="valueStatusSelect" *ngIf="userRole !== 'OPERADOR' && userRole !== 'AUXILIAR'" />
-                <app-custom-select label="D.M" controlName="dm" [form]="form" [dropDownItems]="valueStatusSelect" *ngIf="userRole !== 'OPERADOR' && userRole !== 'REVISADOR'" />
-
-              </div>
-            </div>
-          </div>
-
-
-          <app-custom-textarea label="Observacion" controlName="observaciones" [form]="form" [rows]="20" />
-
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <app-custom-input label="Codigo de Registro" controlName="code" [form]="form" />
+          <app-custom-date-input label="Fecha" controlName="fecha" [form]="form" />
         </div>
 
-
-        <div class="w-1/2 flex flex-col gap-y-5">
-
-          <div class="flex w-full card border border-gray-300 lg">
-            <div class="flex w-full flex-col gap-y-5 p-5">
-              <div class="flex w-full">Lote</div>
-              <app-custom-input label="Año" controlName="lote_anio" [form]="form" />
-              <app-custom-input label="Semana" controlName="lote_sem" [form]="form" />
-              <app-custom-input label="D.y M.E." controlName="lote_dme" [form]="form" />
-            </div>
-          </div>
-
-
-          <div class="flex w-full card border border-gray-300 lg">
-            <div class="flex w-full flex-col gap-y-5 p-5">
-              <div class="flex w-full">Extension</div>
-              <app-custom-input label="Dia" controlName="extension_dia" [form]="form" />
-              <app-custom-input label="D.y M.P." controlName="extension_dmp" [form]="form" />
-              <app-custom-hour label="Hora" controlName="extension_hora" [form]="form" />
-            </div>
-          </div>
-
-          <div class="flex w-full card border border-gray-300 lg">
-            <div class="flex w-full flex-col gap-y-5 p-5">
-              <div class="flex w-full">Fecha de Vencimiento</div>
-              <app-custom-date-input label="Vencimiento" controlName="vencimiento" [form]="form" />
-
-            </div>
-          </div>
-          
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <app-custom-input-modal label="Producto" controlName="productoName" [form]="form" [modal]="ProductModalComponent" (getModalResult)="onProductModalResult($event)" />
+          <app-custom-input-modal label="Turno" controlName="turnoName" [form]="form" [modal]="ShiftModalComponent" (getModalResult)="onShiftModalResult($event)" />
+          <app-custom-input-modal label="Maquina" controlName="maquinaName" [form]="form" [modal]="MachineModalComponent" (getModalResult)="onMachineModalResult($event)" />
         </div>
 
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <app-custom-hour label="H. Inicio" controlName="hora_inicio" [form]="form" />
+          <app-custom-hour label="H. Fin" controlName="hora_fin" [form]="form" />
+          <app-custom-input label="Unid/Kilos" controlName="unidad_kilos" [form]="form" />
+        </div>
+
+        <div class="flex w-full card border border-gray-300 lg">
+          <div class="flex w-full flex-col gap-y-5 p-5">
+            <div class="flex w-full">Evaluacion</div>
+            <div class="grid grid-cols-2 sm:grid-cols-5 gap-4">
+              <app-custom-input label="Golpe" controlName="golpe" mask="number" [form]="form" />
+              <app-custom-input label="Recorte" controlName="recor" [form]="form" />
+              <app-custom-select label="Peso" controlName="peso" [form]="form" [dropDownItems]="valueStatusSelect" *ngIf="userRole !== 'OPERADOR' && userRole !== 'AUXILIAR' " />
+              <app-custom-select label="Vacio" controlName="vacio" [form]="form" [dropDownItems]="valueStatusSelect" *ngIf="userRole !== 'OPERADOR' && userRole !== 'AUXILIAR'" />
+              <app-custom-select label="D.M" controlName="dm" [form]="form" [dropDownItems]="valueStatusSelect" *ngIf="userRole !== 'OPERADOR' && userRole !== 'REVISADOR'" />
+            </div>
+          </div>
+        </div>
+
+        <app-custom-textarea label="Observacion" controlName="observaciones" [form]="form" [rows]="20" />
 
       </div>
-    </form>
-  </div>
+
+      <div class="w-full md:w-1/2 flex flex-col gap-y-5">
+
+        <div class="flex w-full card border border-gray-300 lg">
+          <div class="flex w-full flex-col gap-y-5 p-5">
+            <div class="flex w-full">Lote</div>
+            <app-custom-input label="Año" controlName="lote_anio" [form]="form" />
+            <app-custom-input label="Semana" controlName="lote_sem" [form]="form" />
+            <app-custom-input label="D.y M.E." controlName="lote_dme" [form]="form" />
+          </div>
+        </div>
+
+        <div class="flex w-full card border border-gray-300 lg">
+          <div class="flex w-full flex-col gap-y-5 p-5">
+            <div class="flex w-full">Extension</div>
+            <app-custom-input label="Dia" controlName="extension_dia" [form]="form" />
+            <app-custom-input label="D.y M.P." controlName="extension_dmp" [form]="form" />
+            <app-custom-hour label="Hora" controlName="extension_hora" [form]="form" />
+          </div>
+        </div>
+
+        <div class="flex w-full card border border-gray-300 lg">
+          <div class="flex w-full flex-col gap-y-5 p-5">
+            <div class="flex w-full">Fecha de Vencimiento</div>
+            <app-custom-date-input label="Vencimiento" controlName="vencimiento" [form]="form" />
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </form>
 </div>
