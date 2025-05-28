@@ -25,4 +25,4 @@ jobs:
             ng build --configuration production
             sudo rm -rf /var/www/html/*
             sudo mv dist/* /var/www/html/
-            sudo systemctl restart nginx
+            sudo systemctl reload caddy
