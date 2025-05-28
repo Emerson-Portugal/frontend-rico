@@ -15,9 +15,9 @@ jobs:
       - name: Build and Deploy on DigitalOcean
         uses: appleboy/ssh-action@v0.1.0
         with:
-          host: ${{ secrets.DO_HOST }}
-          username: ${{ secrets.DO_USERNAME }}
-          key: ${{ secrets.DO_PRIVATE_KEY }}
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.PRIVATE_KEY }}
           script: |
             cd frontend-rico/
             git pull
@@ -25,14 +25,4 @@ jobs:
             ng build --configuration production
             sudo rm -rf /var/www/html/*
             sudo mv dist/* /var/www/html/
-            sudo systemctl restart nginx
-
-      # 6. Reinicia Nginx
-      - name: Restart Nginx
-        uses: appleboy/ssh-action@v0.1.0
-        with:
-          host: ${{ secrets.DO_HOST }}
-          username: ${{ secrets.DO_USERNAME }}
-          key: ${{ secrets.DO_PRIVATE_KEY }}
-          script: |
             sudo systemctl restart nginx
