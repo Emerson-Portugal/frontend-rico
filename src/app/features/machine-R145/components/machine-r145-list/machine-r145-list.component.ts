@@ -1,4 +1,4 @@
-import { Component, inject, input, output, signal } from '@angular/core'
+import { Component, inject, input, OnDestroy, OnInit, output, signal } from '@angular/core'
 import { MachineR145Dto } from '../../models'
 import { CustomBehaviourEnum } from '@shared/constants'
 import { Paginator } from '@shared/models'
@@ -6,6 +6,13 @@ import { MachineR145Service } from '../../services'
 import { TableColumn } from '@vex/interfaces/table-column.interface'
 import { HttpParams } from '@angular/common/http'
 import { CustomTableComponent } from '@shared/components'
+import { NotificationsService } from '@core/websocket/services/notifications.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { DestroyRef } from '@angular/core';
+
+
+
+
 @Component({
   selector: 'app-machine-r145-list',
   standalone: true,
@@ -15,8 +22,12 @@ import { CustomTableComponent } from '@shared/components'
 })
 export class MachineR145ListComponent {
 
-
   private readonly machineR145Service = inject(MachineR145Service)
+  private readonly notificationsService = inject(NotificationsService);
+  private readonly destroyRef = inject(DestroyRef);
+
+
+
   title = 'Lista de Productos'
   columns: TableColumn<MachineR145Dto>[] = [
     {
@@ -98,9 +109,36 @@ export class MachineR145ListComponent {
   createBehaviour = input<CustomBehaviourEnum>(CustomBehaviourEnum.KEEP_BEHAVIOUR)
   create = output<void>()
 
-  ngOnInit(): void {
-    this.getAll()
+
+
+
+  ngOnInit() {
+    console.log('[🔎] Componente MachineR145ListComponent montado');
+
+    this.getAll();
+
+    this.notificationsService.newNotification$
+      .pipe(takeUntilDestroyed(this.destroyRef)) // ✅ FIX
+      .subscribe(noti => {
+        if (noti) {
+          console.log('🔁 Notificación recibida, refrescando productos...');
+          this.getAll();
+        } else {
+          console.log('❌ No hay notificación nueva, no se refresca la lista de productos.');
+        }
+      });
   }
+
+
+
+
+
+
+
+
+
+
+  
 
   getAll(searchTerm: string = '') {
     const paginator = this.paginator()

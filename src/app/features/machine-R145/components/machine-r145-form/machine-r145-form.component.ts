@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input, model, signal, viewChild } from '@angular/core'
+import { Component, computed, effect, inject, input, model, OnDestroy, OnInit, signal, viewChild } from '@angular/core'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { ActivatedRoute, Router } from '@angular/router'
 import { CreateMachineR145Dto, MachineR145Dto, UpdateMachineR145Dto } from '../../models'
@@ -8,6 +8,7 @@ import { CustomLayoutComponent } from '@shared/components'
 import { MachineR145FormHeaderComponent } from './machine-r145-form-header/machine-r145-form-header.component'
 import { MachineR145FormBodyComponent } from './machine-r145-form-body/machine-r145-form-body.component'
 import { NEW_GENERAL } from '../../constants'
+
 
 
 @Component({
@@ -22,13 +23,15 @@ import { NEW_GENERAL } from '../../constants'
   templateUrl: './machine-r145-form.component.html',
   styles: ``
 })
-export class MachineR145FormComponent {
+export class MachineR145FormComponent{
 
 
   private readonly machineR145Service = inject(MachineR145Service)
   private readonly snackBar = inject(MatSnackBar)
   private readonly router = inject(Router)
   private readonly route = inject(ActivatedRoute)
+
+
 
 
 
@@ -104,6 +107,9 @@ export class MachineR145FormComponent {
       this.machineR145Service.create(machineR145 as CreateMachineR145Dto).subscribe({
         next: () => {
           this.snackBar.open('El producto se creo correctamente', 'OK', { duration: 3_000 })
+          
+          //this.notificationsService.sendMessage({ message: 'Nuevo registro R145 creado' });
+
           this.router.navigate(['../'], { relativeTo: this.route })
         },
       })
