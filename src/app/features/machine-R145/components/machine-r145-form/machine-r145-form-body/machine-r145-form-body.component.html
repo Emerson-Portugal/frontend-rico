@@ -28,12 +28,8 @@
               [modal]="ShiftModalComponent"
               (getModalResult)="onShiftModalResult($event)" />
 
-            <app-custom-input-modal
-              label="Máquina"
-              controlName="maquinaName"
-              [form]="form"
-              [modal]="MachineModalComponent"
-              (getModalResult)="onMachineModalResult($event)" />
+            <app-custom-select label="Maquina" controlName="maquina" [form]="form" [dropDownItems]="machineR145TypeEnum" />
+
           </div>
 
           <!-- Hora de inicio -->

@@ -27,6 +27,7 @@ import { MachineService } from '@features/maintenance/machine/services'
 import { CommonModule } from '@angular/common'  // <-- Agregar importación de CommonModule
 import { TokenService } from '@core/token/services/token.service'
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
+import { MachineR145TypeEnum } from '@features/machine-R145/constants/machine-r145-type.enum'
 
 
 @Component({
@@ -39,7 +40,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
     CustomDateInputComponent,
     CustomTextareaComponent,
     CustomHourComponent,
-    CommonModule
+    CommonModule,
+    CustomSelectComponent
   ],
   templateUrl: './machine-r145-form-body.component.html',
   styles: ``
@@ -63,7 +65,7 @@ export class MachineR145FormBodyComponent implements AfterViewInit, OnDestroy {
 
     productoName: ['', [Validators.required]],
     producto: ['', [Validators.required]],
-    maquinaName: ['', [Validators.required]],
+    maquina: ['', [Validators.required]],
     turnoName: ['', [Validators.required]],
 
     lote_anio: ['', [Validators.required]],
@@ -93,7 +95,7 @@ export class MachineR145FormBodyComponent implements AfterViewInit, OnDestroy {
   ProductModalComponent = ProductModalComponent
   MachineModalComponent = MachineModalComponent
 
-  valueStatusSelect = EnumUtil.toCustomSelectContent(YesNoEnum)
+  machineR145TypeEnum = EnumUtil.toCustomSelectContent(MachineR145TypeEnum)
 
 
   //#region TOKEN
@@ -238,33 +240,7 @@ export class MachineR145FormBodyComponent implements AfterViewInit, OnDestroy {
   //#endregion
 
 
-  //#region Machine Modal
-  private updateMachineEffect = effect(() => {
-    if (this.isCreate()) return
 
-    const machineR145 = this.machineR145()
-    if (!machineR145 || !machineR145.maquina) return
-
-    this.getMachineByCode(machineR145.maquina)
-    this.updateMachineEffect.destroy()
-  })
-
-  getMachineByCode(code: string) {
-    this.machineService.getByCode(code).subscribe({
-      next: ({ data }) => {
-        this.machine.set(data)
-        this.form.patchValue({ maquinaName: data?.name })
-      },
-    })
-  }
-
-  onMachineModalResult(machine: MachineDto) {
-    this.machine.set(machine)
-    this.machineR145.update(cur => ({ ...cur, maquina: machine?.code }))
-    //this.form.patchValue({ maquina: "49GK", maquinaName: "R145" })
-    this.form.patchValue({ maquinaName: machine?.name })
-  }
-  //#endregion
 
 
 }
