@@ -5,54 +5,104 @@
         <vex-breadcrumbs [crumbs]="urlTree()" class="flex-auto" />
       }
       @if (showActionButtons()) {
-        <div class="flex space-x-2">
+        <!-- Contenedor de acciones -->
+        <div class="flex items-center space-x-2">
           @switch (editViewMode()) {
             @case (editViewModeEnum.VIEW_ONLY) {
-              <button mat-raised-button color="primary" type="button" (click)="onClickList()">Listar</button>
-              <button mat-raised-button color="primary" type="button" (click)="onClickEdit()">Editar</button>
-              <button mat-raised-button color="primary" type="button" (click)="onClickCreate()">Crear</button>
-              <button mat-raised-button color="primary" [matMenuTriggerFor]="actionsMenu" type="button">
-                Opciones
-              </button>
-              <mat-menu #actionsMenu="matMenu" xPosition="before" yPosition="below">
-                <ng-template matMenuContent>
-                  @if (hasDeleteListeners()) {
-                    <button mat-menu-item (click)="onClickDelete()">
-                      <mat-icon svgIcon="mat:delete" />
-                      <span>Eliminar</span>
-                    </button>
-                  }
-                  @if (isElementActive()) {
-                    <button mat-menu-item (click)="onClickDisable()">
-                      <mat-icon svgIcon="mat:lock" />
-                      <span>Anular</span>
-                    </button>
-                  } @else {
-                    <button mat-menu-item (click)="onClickEnable()">
-                      <mat-icon svgIcon="mat:lock_open" />
-                      <span>Activar</span>
-                    </button>
-                  }
-                  @if (hasGetFormatListeners()) {
-                    <button mat-menu-item (click)="onClickGetFormat()">
-                      <mat-icon svgIcon="mat:picture_as_pdf" />
-                      <span>Ver Formato Vacio</span>
-                    </button>
-                  }
-                  @if (hasGetPdfListeners()) {
-                    <button mat-menu-item (click)="onClickGetPdf()">
-                      <mat-icon svgIcon="mat:picture_as_pdf" />
-                      <span>Ver PDF</span>
-                    </button>
-                  }
-                  @if (hasGetEmailSentListeners()) {
-                    <button mat-menu-item (click)="onClickSendEmail()">
-                      <mat-icon svgIcon="mat:mail" />
-                      <span>Enviar</span>
-                    </button>
-                  }
-                </ng-template>
-              </mat-menu>
+          <!-- Acciones visibles solo en pantallas md+ (desktop) -->
+          <div class="hidden md:flex space-x-2">
+            <button mat-raised-button color="primary" type="button" (click)="onClickList()">Listar</button>
+            <button mat-raised-button color="primary" type="button" (click)="onClickEdit()">Editar</button>
+            <button mat-raised-button color="primary" type="button" (click)="onClickCreate()">Crear</button>
+             <button mat-raised-button color="primary" type="button" (click)="onClickDelete()">Eliminar</button>
+            <!--
+            <button mat-raised-button color="primary" [matMenuTriggerFor]="actionsMenu" type="button">
+              Opciones
+            </button>
+            -->
+          </div>
+
+          <!-- Botón de menú en móvil (pantallas < md) -->
+          <div class="md:hidden fixed top-4 right-4 z-[1001]">
+            <button mat-icon-button
+                    [matMenuTriggerFor]="mobileMenu"
+                    aria-label="Abrir menú"
+                    class="bg-gray-200 rounded-lg p-3 shadow-md flex items-center justify-center text-gray-800 hover:bg-gray-300 transition">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="1"></circle>
+                <circle cx="12" cy="19" r="1"></circle>
+                <circle cx="12" cy="5" r="1"></circle>
+              </svg>
+            </button>
+          </div>
+
+
+          <!-- Menú para móvil -->
+          <mat-menu #mobileMenu="matMenu" xPosition="before" yPosition="below">
+            <button mat-menu-item (click)="onClickList()">Listar</button>
+            <button mat-menu-item (click)="onClickEdit()">Editar</button>
+            <button mat-menu-item (click)="onClickCreate()">Crear</button>
+            <button mat-menu-item (click)="onClickDelete()">Eliminar</button>
+            <!--
+            <button mat-menu-item [matMenuTriggerFor]="actionsMenu">
+              <mat-icon>more_vert</mat-icon>
+              <span>Más Opciones</span>
+            </button>
+            -->
+          </mat-menu>
+
+          <!-- Menú de acciones (compartido entre escritorio y móvil) -->
+          <mat-menu #actionsMenu="matMenu" xPosition="before" yPosition="below">
+            <ng-template matMenuContent>
+              <!--
+              @if (hasDeleteListeners()) {
+                <button mat-menu-item (click)="onClickDelete()">
+                  <mat-icon svgIcon="mat:delete" />
+                  <span>Eliminar</span>
+                </button>
+              }
+              -->
+              @if (isElementActive()) {
+                <button mat-menu-item (click)="onClickDisable()">
+                  <mat-icon svgIcon="mat:lock" />
+                  <span>Anular</span>
+                </button>
+              } @else {
+                <button mat-menu-item (click)="onClickEnable()">
+                  <mat-icon svgIcon="mat:lock_open" />
+                  <span>Activar</span>
+                </button>
+              }
+              @if (hasGetFormatListeners()) {
+                <button mat-menu-item (click)="onClickGetFormat()">
+                  <mat-icon svgIcon="mat:picture_as_pdf" />
+                  <span>Ver Formato Vacío</span>
+                </button>
+              }
+              @if (hasGetPdfListeners()) {
+                <button mat-menu-item (click)="onClickGetPdf()">
+                  <mat-icon svgIcon="mat:picture_as_pdf" />
+                  <span>Ver PDF</span>
+                </button>
+              }
+              @if (hasGetEmailSentListeners()) {
+                <button mat-menu-item (click)="onClickSendEmail()">
+                  <mat-icon svgIcon="mat:mail" />
+                  <span>Enviar</span>
+                </button>
+              }
+            </ng-template>
+          </mat-menu>
             }
             @default {
               <button mat-raised-button color="primary" type="button" (click)="saveElement.emit()">Guardar</button>
@@ -63,6 +113,7 @@
       }
     </vex-secondary-toolbar>
   }
+
   <vex-page-layout-content
     class="mt-10"
     [class.container]="layout() === 'boxed'"
