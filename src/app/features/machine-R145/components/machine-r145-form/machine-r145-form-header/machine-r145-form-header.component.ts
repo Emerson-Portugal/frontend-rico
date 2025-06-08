@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, input } from '@angular/core'
 import { CustomFormHeaderComponent } from '@shared/components'
 import { Tab } from '@shared/models'
 
@@ -13,5 +13,5 @@ import { Tab } from '@shared/models'
 export class MachineR145FormHeaderComponent {
   title: string = 'Maquina R145'
   icon: string = 'mat:construction'
-  tabs: Tab[] = [{ label: 'Informacion General', onClick: () => {}, active: true, disabled: false }]
+  tabs = input.required<Tab[]>()
 }

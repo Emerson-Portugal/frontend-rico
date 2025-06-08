@@ -7,7 +7,10 @@ import { EditViewModeEnum } from '@shared/constants'
 import { CustomLayoutComponent } from '@shared/components'
 import { MachineR145FormHeaderComponent } from './machine-r145-form-header/machine-r145-form-header.component'
 import { MachineR145FormBodyComponent } from './machine-r145-form-body/machine-r145-form-body.component'
-import { NEW_GENERAL } from '../../constants'
+import {MachineR145FormDetailComponent } from '../machine-r145-form-detail/machine-r145-form-detail.component'
+
+import { NEW_GENERAL, MachineTabEnum } from '../../constants'
+import { Tab } from '@shared/models'
 
 
 
@@ -18,6 +21,7 @@ import { NEW_GENERAL } from '../../constants'
     CustomLayoutComponent,
     MachineR145FormBodyComponent,
     MachineR145FormHeaderComponent,
+    MachineR145FormDetailComponent
 
 ],
   templateUrl: './machine-r145-form.component.html',
@@ -30,6 +34,15 @@ export class MachineR145FormComponent{
   private readonly snackBar = inject(MatSnackBar)
   private readonly router = inject(Router)
   private readonly route = inject(ActivatedRoute)
+
+
+  MachineTabEnum = MachineTabEnum
+  tabsCreate = signal<Tab[]>([
+    { label: MachineTabEnum.FASE_1, onClick: this.onTabClick.bind(this, MachineTabEnum.FASE_1), active: true, disabled: false },
+    { label: MachineTabEnum.FASE_2, onClick: this.onTabClick.bind(this, MachineTabEnum.FASE_2), active: false, disabled: true },
+  ])
+  tabsUpdate = computed<Tab[]>(() => this.tabsCreate().map(tab => ({ ...tab, disabled: false })))
+  currentTab = computed<MachineTabEnum>(() => this.tabsCreate().find(tab => tab.active)?.label as MachineTabEnum)
 
 
 
@@ -132,7 +145,9 @@ export class MachineR145FormComponent{
     })
   }
 
-
+  onTabClick(tabToDisplay: MachineTabEnum) {
+    this.tabsCreate.update(cur => cur.map((tab) => ({ ...tab, active: tab.label === tabToDisplay })))
+  }
 
 
 

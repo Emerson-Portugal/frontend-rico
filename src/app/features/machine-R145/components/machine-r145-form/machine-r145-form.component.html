@@ -8,13 +8,22 @@
   (saveElement)="onSaveElement()"
   (deleteElement)="onDeleteElement()">
   @if (showHeader()) {
-    <app-machine-r145-form-header />
+    <app-machine-r145-form-header [tabs]="isCreate() ? tabsCreate() : tabsUpdate()" />
   }
   <app-machine-r145-form-body
+    [class.hidden]="currentTab() !== MachineTabEnum.FASE_1"
     [class.disabled]="!canEdit()"
     [(machineR145)]="machineR145"
     [machineR145Data]="machineR145Data()"
     [code]="code()"
     [isCreate]="isCreate()" />
+
+    <app-machine-r145-form-detail
+      [class.disabled]="!canEdit()"
+      [class.hidden]="currentTab() !== MachineTabEnum.FASE_2"
+      [(machineR145Detail)]="machineR145"
+      [machineR145DataDetail]="machineR145Data()"
+      [code]="code()"
+      [isCreate]="isCreate()" />
 
 </app-custom-layout>

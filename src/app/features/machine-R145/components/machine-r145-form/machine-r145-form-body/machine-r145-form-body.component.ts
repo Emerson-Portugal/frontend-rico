@@ -36,7 +36,6 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
     CustomInputModalComponent,
     CustomInputComponent,
     ReactiveFormsModule,
-    CustomSelectComponent,
     CustomDateInputComponent,
     CustomTextareaComponent,
     CustomHourComponent,
@@ -61,8 +60,6 @@ export class MachineR145FormBodyComponent implements AfterViewInit, OnDestroy {
 
     fecha: [new Date(), [Validators.required]],
     hora_inicio: ['', [Validators.required]],
-    hora_fin: ['', [Validators.required]],
-    unidad_kilos: [0, [Validators.required, Validators.pattern(RegexPatterns.DECIMAL_NUMBER)]],
 
     productoName: ['', [Validators.required]],
     producto: ['', [Validators.required]],
@@ -78,12 +75,7 @@ export class MachineR145FormBodyComponent implements AfterViewInit, OnDestroy {
     extension_hora: ['', [Validators.required]],
     vencimiento: [new Date(), [Validators.required]],
 
-    golpe : [0, [Validators.required, Validators.pattern(RegexPatterns.DECIMAL_NUMBER)]],
-    recor : ['', [Validators.required]],
 
-    peso : ['NO', [Validators.required]],
-    vacio : ['NO', [Validators.required]],
-    dm : ['NO', [Validators.required]],
 
     observaciones: ['', [Validators.required]],
 
@@ -102,10 +94,6 @@ export class MachineR145FormBodyComponent implements AfterViewInit, OnDestroy {
   MachineModalComponent = MachineModalComponent
 
   valueStatusSelect = EnumUtil.toCustomSelectContent(YesNoEnum)
-
-
-
-
 
 
   //#region TOKEN
@@ -132,11 +120,8 @@ export class MachineR145FormBodyComponent implements AfterViewInit, OnDestroy {
 
       code: machineR145Data.code,
 
-
       fecha: DateUtil.toDate(machineR145Data.fecha),
       hora_inicio: machineR145Data.hora_inicio,
-      hora_fin: machineR145Data.hora_fin,
-      unidad_kilos: Number(machineR145Data.unidad_kilos),
 
 
       observaciones: machineR145Data.observaciones,
@@ -144,17 +129,12 @@ export class MachineR145FormBodyComponent implements AfterViewInit, OnDestroy {
       lote_anio: (machineR145Data.lote_anio),
       lote_sem: (machineR145Data.lote_sem),
       lote_dme: machineR145Data.lote_dme,
+
       extension_dia: (machineR145Data.extension_dia),
       extension_dmp: machineR145Data.extension_dmp,
       extension_hora: machineR145Data.extension_hora,
+
       vencimiento: DateUtil.toDate(machineR145Data.vencimiento),
-      peso: (machineR145Data.peso),
-
-      golpe: machineR145Data.golpe,
-      recor: machineR145Data.recor,
-      vacio: machineR145Data.vacio,
-      dm: machineR145Data.dm,
-
 
 
     })
@@ -170,9 +150,6 @@ export class MachineR145FormBodyComponent implements AfterViewInit, OnDestroy {
 
         fecha:  DateUtil.toString(this.form.get('fecha')?.value),
         hora_inicio: this.form.get('hora_inicio')?.value ?? '',
-        hora_fin: this.form.get('hora_fin')?.value ?? '',
-        unidad_kilos: this.form.get('unidad_kilos')?.value ?? 0,
-
 
 
         lote_anio: this.form.get('lote_anio')?.value ?? '',
@@ -182,16 +159,14 @@ export class MachineR145FormBodyComponent implements AfterViewInit, OnDestroy {
         extension_dia: this.form.get('extension_dia')?.value ?? '',
         extension_dmp: this.form.get('extension_dmp')?.value ?? '',
         extension_hora: this.form.get('extension_hora')?.value ?? '',
+
         vencimiento:  DateUtil.toString(this.form.get('vencimiento')?.value),
 
-        golpe: this.form.get('golpe')?.value ?? 0,
-        recor: this.form.get('recor')?.value ?? '',
-
-        peso: this.form.get('peso')?.value ?? '',
-        vacio: this.form.get('vacio')?.value ?? '',
-        dm: this.form.get('dm')?.value ?? '',
-
         observaciones: this.form.get('observaciones')?.value ?? '',
+
+
+
+        
       }))
 
     })

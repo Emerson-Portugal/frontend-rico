@@ -13,17 +13,15 @@ import { EditViewModeEnum, YesNoEnum } from '@shared/constants'
 export class CreateMachineR145PageComponent {
   editViewMode = EditViewModeEnum.CREATE
   machineR145: CreateMachineR145Dto = {
-
     producto: '',
     maquina: '',
     turno: '',
-
     fecha: '',
     hora_inicio: '',
-    hora_fin: '',
-    unidad_kilos: 0,
+    hora_fin: '00:00',
+    unidad_kilos: 0, // para que no sea obligatorio
 
-    lote_anio: '',
+    lote_anio: '', // puede quedarse vacío
     lote_sem: '',
     lote_dme: '',
 
@@ -32,14 +30,15 @@ export class CreateMachineR145PageComponent {
     extension_hora: '',
     vencimiento: '',
 
-    golpe: 0,
+    golpe: 0, // para que no sea obligatorio
     recor: '',
 
-    peso: YesNoEnum.NO,
-    vacio: YesNoEnum.NO,
-    dm: YesNoEnum.NO,
+    peso: '', // o null si no se usa enum obligatorio
+    vacio: '',
+    dm: '',
 
     observaciones: ''
   }
+
 
 }
