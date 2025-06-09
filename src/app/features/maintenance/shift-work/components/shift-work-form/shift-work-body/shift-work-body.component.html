@@ -1,0 +1,19 @@
+<div class="flex w-full card">
+    <form class="flex w-1/2 flex-col mx-5 py-5 gap-y-5" [formGroup]="form">
+
+        
+        <app-custom-input-modal
+            label="Turno"
+            controlName="turnoName"
+            [form]="form"
+            [modal]="ShiftModalComponent"
+            (getModalResult)="onShiftModalResult($event)" />
+
+        <app-custom-date-input label="Fecha Inicio" controlName="fecha_inicio" [form]="form" />
+
+        <app-custom-date-input label="Fecha Fin" controlName="fecha_fin" [form]="form" />
+
+
+    </form>
+  </div>
+

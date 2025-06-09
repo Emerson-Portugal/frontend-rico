@@ -10,5 +10,8 @@
         controlName="name"
         [form]="form"
         />
+
+      <app-custom-select label="Tipo de Producto" controlName="type" [form]="form" [dropDownItems]="productTypeEnum" />
+
     </form>
   </div>

@@ -1,25 +1,25 @@
 import { Component, inject, input, output, signal } from '@angular/core'
-import { ProductDto } from '../../models'
+import { ShiftWorkDto } from '../../models'
 import { CustomBehaviourEnum } from '@shared/constants'
 import { Paginator } from '@shared/models'
-import { ProductService } from '../../services'
+import { ShiftWorkService } from '../../services'
 import { TableColumn } from '@vex/interfaces/table-column.interface'
 import { HttpParams } from '@angular/common/http'
 import { CustomTableComponent } from '@shared/components'
 
 @Component({
-  selector: 'app-product-list',
+  selector: 'app-shift-work-list',
   standalone: true,
   imports: [CustomTableComponent],
-  templateUrl: './product-list.component.html',
+  templateUrl: './shift-work-list.component.html',
   styles: ``
 })
-export class ProductListComponent {
+export class ShiftWorkListComponent {
 
-  private readonly productService = inject(ProductService)
+  private readonly shiftWorkService = inject(ShiftWorkService)
 
-  title = 'Tipo de Producto'
-  columns: TableColumn<ProductDto>[] = [
+  title = 'Tipo de Turno'
+  columns: TableColumn<ShiftWorkDto>[] = [
     {
       label: 'ID',
       property: 'id',
@@ -35,17 +35,27 @@ export class ProductListComponent {
       cssClasses: ['font-medium'],
     },
     {
-      label: 'Nombre',
-      property: 'name',
+      label: 'Turno',
+      property: 'turno.shift',
       type: 'text',
       visible: true,
+      cssClasses: ['font-medium'],
     },
     {
-      label: 'Tipo',
-      property: 'type',
+      label: 'Fecha Inicio',
+      property: 'fecha_inicio',
       type: 'text',
       visible: true,
+      cssClasses: ['font-medium'],
     },
+    {
+      label: 'Fecha Fin',
+      property: 'fecha_fin',
+      type: 'text',
+      visible: true,
+      cssClasses: ['font-medium'],
+    },
+
   ]
   paginator = signal<Paginator>({
     currentPage: 1,
@@ -53,9 +63,9 @@ export class ProductListComponent {
     totalCount: 0,
     totalPages: 0,
   })
-  products = signal<ProductDto[]>([])
+  shiftWorks = signal<ShiftWorkDto[]>([])
   getSelectedBehaviour = input<CustomBehaviourEnum>(CustomBehaviourEnum.KEEP_BEHAVIOUR)
-  getSelected = output<ProductDto>()
+  getSelected = output<ShiftWorkDto>()
   createBehaviour = input<CustomBehaviourEnum>(CustomBehaviourEnum.KEEP_BEHAVIOUR)
   create = output<void>()
 
@@ -71,9 +81,9 @@ export class ProductListComponent {
       .set('name', searchTerm)
 
 
-    this.productService.getAll(params).subscribe({
+    this.shiftWorkService.getAll(params).subscribe({
       next: ({ data }) => {
-        this.products.set(data.results)
+        this.shiftWorks.set(data.results)
         this.paginator.set({
           currentPage: data.pageNumber,
           pageSize: data.pageSize,

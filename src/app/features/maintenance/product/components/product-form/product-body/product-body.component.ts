@@ -2,19 +2,25 @@ import { Component, effect, inject, model } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { CreateProductDto, UpdateProductDto } from '@features/maintenance/product/models';
-import { CustomInputComponent } from '@shared/components';
 import { RegexPatterns } from '@shared/constants';
-import { ValidatorUtil } from '@shared/utils';
+import { EnumUtil, ValidatorUtil } from '@shared/utils';
 import { Subscription } from 'rxjs';
+import { CustomInputComponent, CustomSelectComponent } from '@shared/components'
+import { ProductTypeEnum } from '@features/maintenance/product/constants'
+
 
 @Component({
   selector: 'app-product-body',
   standalone: true,
-  imports: [CustomInputComponent, ReactiveFormsModule, MatInputModule],
+  imports: [CustomInputComponent, CustomSelectComponent, ReactiveFormsModule, MatInputModule],
   templateUrl: './product-body.component.html',
   styles: ``
 })
 export class ProductBodyComponent {
+
+
+  productTypeEnum = EnumUtil.toCustomSelectContent(ProductTypeEnum)
+
 
   private readonly fb = inject(FormBuilder)
   code = model<string>('')
@@ -23,6 +29,7 @@ export class ProductBodyComponent {
   form = this.fb.group({
     code: ['', [Validators.required, Validators.pattern(RegexPatterns.TEXT_ONLY)]],
     name: ['', [Validators.required, Validators.pattern(RegexPatterns.TEXT_ONLY)]],
+    type: ['', [Validators.required]],
   })
   formSubscription: Subscription | null = null
 
@@ -35,6 +42,7 @@ export class ProductBodyComponent {
     this.form.patchValue({
       code: this.code(),
       name: product.name,
+      type: product.type,
     })
     this.updateFormValuesEffect.destroy()
   })
@@ -51,6 +59,7 @@ export class ProductBodyComponent {
           ...cur,
           code: this.form.get('code')!.value ?? '',
           name: this.form.get('name')!.value ?? '',
+          type: this.form.get('type')!.value ?? '',
         }))
         return
       }
@@ -58,6 +67,7 @@ export class ProductBodyComponent {
       this.product.update(cur => ({
         ...cur,
         name: this.form.get('name')!.value ?? '',
+        type: this.form.get('type')!.value ?? '',
       }))
     })
   }

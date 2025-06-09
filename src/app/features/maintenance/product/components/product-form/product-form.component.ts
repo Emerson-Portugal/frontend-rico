@@ -24,6 +24,7 @@ export class ProductFormComponent {
   product = model<CreateProductDto | UpdateProductDto>({
     code: this.code() ,
     name: '',
+    type: ''
   })
 
   showToolbar = input<boolean>(true)
@@ -46,6 +47,7 @@ export class ProductFormComponent {
         this.product.set({
           code: data.code,
           name: data.name,
+          type: data.type,
         })
       },
     })
@@ -83,6 +85,7 @@ export class ProductFormComponent {
       this.product.set({
         code: '',
         name: '',
+        type: '',
       })
       this.child()?.form.reset()
       return

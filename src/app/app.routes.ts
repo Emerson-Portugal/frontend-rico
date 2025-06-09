@@ -45,7 +45,7 @@ export const routes: VexRoutes = [
       /*LOS MANTENIMIENTOS */
       {
         path: 'management',
-        canActivate: [roleGuard(['ADMIN'])],
+        canActivate: [roleGuard(['ADMIN', 'SUPERVISOR'])],
         children: [
           {
             path: 'dashboard',
@@ -62,6 +62,10 @@ export const routes: VexRoutes = [
           {
             path: 'shifts',
             loadChildren: () => import('./features/maintenance/shifts/shift.routes').then(x => x.SHIFT_ROUTES),
+          },
+          {
+            path: 'shifts-work',
+            loadChildren: () => import('./features/maintenance/shift-work/shift-work.routes').then(x => x.SHIFT_WORK_ROUTES),
           },
         ],
       },

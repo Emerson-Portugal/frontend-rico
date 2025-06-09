@@ -103,6 +103,8 @@ export class MachineR145FormComponent{
 
         })
 
+        console.log('Error al obtener el R145: ', data)
+
       },
     })
   }

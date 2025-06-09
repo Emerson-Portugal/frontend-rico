@@ -86,14 +86,14 @@ export class MachineR145FormBodyComponent implements AfterViewInit, OnDestroy {
   isCreate = model<boolean>(true)
   machineR145 = model.required<CreateMachineR145Dto | UpdateMachineR145Dto>()
   machineR145Data = input<MachineR145Dto | null>(null)
-  shift = signal<ShiftDto | null>(null)
+
   product = signal<ProductDto | null>(null)
-  machine = signal<MachineDto | null>(null)
 
 
-  ShiftModalComponent = ShiftModalComponent
+
+
   ProductModalComponent = ProductModalComponent
-  MachineModalComponent = MachineModalComponent
+
 
   machineR145TypeEnum = EnumUtil.toCustomSelectContent(MachineR145TypeEnum)
 
@@ -181,33 +181,6 @@ export class MachineR145FormBodyComponent implements AfterViewInit, OnDestroy {
   }
 
 
-
-
-  //#region Shift Modal
-  private updateShiftEffect = effect(() => {
-    if (this.isCreate()) return
-
-    const machineR145 = this.machineR145()
-    if (!machineR145 || !machineR145.turno) return
-
-    this.getShiftByCode(machineR145.turno)
-    this.updateShiftEffect.destroy()
-  })
-
-  getShiftByCode(code: string) {
-    this.shiftService.getByCode(code).subscribe({
-      next: ({ data }) => {
-        this.shift.set(data)
-        this.form.patchValue({ turnoName: data?.shift })
-      },
-    })
-  }
-
-  onShiftModalResult(shift: ShiftDto) {
-    this.shift.set(shift)
-    this.machineR145.update(cur => ({ ...cur, turno: shift?.code }))
-    this.form.patchValue({  turnoName: shift?.shift })
-  }
   //#endregion
 
 

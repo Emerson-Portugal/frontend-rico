@@ -17,9 +17,9 @@
 
     <!-- Fila 2: Maquinas y Turnos -->
     <div class="flex flex-wrap justify-center gap-4 md:gap-10 w-full max-w-5xl">
-      <app-custom-card *ngIf="userRole === 'ADMIN'" imageUrl="assets/img/menu/contabilidadv2.png" content="Maquinas"
+      <app-custom-card *ngIf="userRole === 'ADMIN'  || userRole === 'SUPERVISOR'" imageUrl="assets/img/menu/contabilidadv2.png" content="Maquinas"
         (click)="navigateTo('management/machines')" />
-      <app-custom-card *ngIf="userRole === 'ADMIN'" imageUrl="assets/img/menu/facturav2.png" content="Turnos"
+      <app-custom-card *ngIf="userRole === 'ADMIN'  || userRole === 'SUPERVISOR'" imageUrl="assets/img/menu/facturav2.png" content="Turnos"
         (click)="navigateTo('management/shifts')" />
     </div>
 
@@ -27,8 +27,15 @@
     <div class="flex flex-wrap justify-center gap-4 md:gap-10 w-full max-w-5xl">
       <app-custom-card *ngIf="userRole === 'ADMIN'" imageUrl="assets/img/menu/configv2.png" content="Configuración"
         (click)="navigateTo('management/dashboard')" />
-      <app-custom-card *ngIf="userRole === 'ADMIN'" imageUrl="assets/img/menu/configv2.png" content="Productos"
+      <app-custom-card *ngIf="userRole === 'ADMIN' || userRole === 'SUPERVISOR' " imageUrl="assets/img/menu/configv2.png" content="Productos"
         (click)="navigateTo('management/products')" />
+    </div>
+
+        <!-- Fila 3: Configuración y Productos -->
+    <div class="flex flex-wrap justify-center gap-4 md:gap-10 w-full max-w-5xl">
+      <app-custom-card *ngIf="userRole === 'SUPERVISOR'" imageUrl="assets/img/menu/configv2.png" content="Programar Turnos"
+        (click)="navigateTo('management/shifts-work')" />
+
     </div>
 
   </div>

@@ -1,0 +1,21 @@
+<app-custom-layout
+  customClasses="flex flex-col gap-y-5 bg-transparent shadow-none"
+  title="Horarios de Trabajo"
+  [showActionButtons]="showActionButtons()"
+  [showBreadcrumbs]="showBreadcrumbs()"
+  [showToolbar]="showToolbar()"
+  [(editViewMode)]="editViewMode"
+  (saveElement)="onSaveElement()"
+  (deleteElement)="onDeleteElement()"
+>
+  @if (showHeader()) {
+    <app-shift-work-header/>
+  }
+  <app-shift-work-body
+    [class.disabled]="!canEdit()"
+    [(shiftWorks)]="shiftWorks"
+    [code]="code()"
+    [isCreate]="isCreate()"
+    />
+</app-custom-layout>
+

@@ -21,12 +21,7 @@
               [modal]="ProductModalComponent"
               (getModalResult)="onProductModalResult($event)" />
 
-            <app-custom-input-modal
-              label="Turno"
-              controlName="turnoName"
-              [form]="form"
-              [modal]="ShiftModalComponent"
-              (getModalResult)="onShiftModalResult($event)" />
+            <app-custom-input label="Turno" controlName="turno" [form]="form" />
 
             <app-custom-select label="Maquina" controlName="maquina" [form]="form" [dropDownItems]="machineR145TypeEnum" />
 
