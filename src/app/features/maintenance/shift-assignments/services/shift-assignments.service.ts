@@ -10,7 +10,7 @@ import { HttpParams } from '@angular/common/http'
 export class ShiftAssignmentsService {
 
   private readonly api = inject(ApiService)
-  private url = 'produccion/turnos-trabajo'
+  private url = 'produccion/asignaciones-turno'
 
   getAll(params?: HttpParams) {
     return this.api.getAll<ShiftAssignmentDto>(`${this.url}/`, params)

@@ -85,6 +85,7 @@ export class ShiftAssignmentsListComponent {
     this.shiftAssignmentsService.getAll(params).subscribe({
       next: ({ data }) => {
         this.shiftAssignments.set(data.results)
+        console.log(data.results)
         this.paginator.set({
           currentPage: data.pageNumber,
           pageSize: data.pageSize,

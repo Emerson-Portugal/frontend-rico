@@ -19,7 +19,7 @@ import { CustomLayoutComponent } from '@shared/components'
 export class ShiftWorkFormComponent {
 
 
- private readonly shiftWorkService = inject(ShiftWorkService)
+  private readonly shiftWorkService = inject(ShiftWorkService)
   private readonly snackBar = inject(MatSnackBar)
   private readonly router = inject(Router)
   private readonly route = inject(ActivatedRoute)
@@ -56,7 +56,6 @@ export class ShiftWorkFormComponent {
           turno: String(data.turno.code),
         })
 
-        console.log('Error al obtener el Turno: ', data)
       },
 
       

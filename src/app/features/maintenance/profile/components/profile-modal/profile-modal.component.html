@@ -1,1 +1,19 @@
-<p>profile-modal works!</p>
+<div class="flex items-center" mat-dialog-title>
+    <h2 class="headline m-0 flex-auto">{{ title }}</h2>
+  
+    <button class="text-secondary" mat-dialog-close mat-icon-button type="button">
+      <mat-icon svgIcon="mat:close"></mat-icon>
+    </button>
+  </div>
+  <mat-dialog-content>
+    @switch (viewMode()) {
+      @case ("list") {
+        <app-profile-list
+          (getSelected)="onSelectElement($event)"
+          [getSelectedBehaviour]="CustomBehaviourEnum.CHANGE_BEHAVIOUR"
+          (create)="toggleViewMode()"
+          [createBehaviour]="CustomBehaviourEnum.CHANGE_BEHAVIOUR"
+          />
+      }
+    }
+  </mat-dialog-content>

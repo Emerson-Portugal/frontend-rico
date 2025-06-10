@@ -1,1 +1,21 @@
-<p>shift-assignments-form works!</p>
+<app-custom-layout
+  customClasses="flex flex-col gap-y-5 bg-transparent shadow-none"
+  title="Horarios de Trabajo"
+  [showActionButtons]="showActionButtons()"
+  [showBreadcrumbs]="showBreadcrumbs()"
+  [showToolbar]="showToolbar()"
+  [(editViewMode)]="editViewMode"
+  (saveElement)="onSaveElement()"
+  (deleteElement)="onDeleteElement()"
+>
+  @if (showHeader()) {
+    <app-shift-assignments-header/>
+  }
+  <app-shift-assignments-body
+    [class.disabled]="!canEdit()"
+    [(shiftAssignments)]="shiftAssignments"
+    [code]="code()"
+    [isCreate]="isCreate()"
+    />
+</app-custom-layout>
+
