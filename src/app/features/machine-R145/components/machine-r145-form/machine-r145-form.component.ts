@@ -73,7 +73,7 @@ export class MachineR145FormComponent{
         this.machineR145Data.set(data)
         this.machineR145.set({
 
-          producto: String(data.producto),
+          producto: String(data.producto.code),
           maquina: String(data.maquina),
           turno: String(data.turno),
 

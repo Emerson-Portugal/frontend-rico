@@ -84,6 +84,7 @@ export class ShiftAssignmentsBodyComponent {
 
   private updateAssestStatusEffect = effect(() => {
 
+    if (!this.isCreate()) return
 
     this.form.get('turnoTrabajoInicio')?.disable()
     this.form.get('turnoTrabajoFin')?.disable()

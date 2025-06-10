@@ -1,4 +1,4 @@
-import { map, Observable, Subscription } from 'rxjs'
+import { combineLatest, map, Observable, of, Subscription, switchMap, tap } from 'rxjs'
 import { AfterViewInit, Component, effect, inject, input, model, OnDestroy, OnInit, signal } from '@angular/core'
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { CustomInputComponent, CustomInputModalComponent, CustomSelectComponent, CustomTextareaComponent } from '@shared/components'
@@ -30,6 +30,13 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout'
 import { MachineR145TypeEnum } from '@features/machine-R145/constants/machine-r145-type.enum'
 
 
+// llamado a usuario
+import { ProfileService } from '@features/maintenance/profile/services'
+import { ProfileDto } from '@features/maintenance/profile/models'
+import { ShiftAssignmentsService } from '@features/maintenance/shift-assignments/services'
+
+
+
 @Component({
   selector: 'app-machine-r145-form-body',
   standalone: true,
@@ -46,13 +53,13 @@ import { MachineR145TypeEnum } from '@features/machine-R145/constants/machine-r1
   templateUrl: './machine-r145-form-body.component.html',
   styles: ``
 })
-export class MachineR145FormBodyComponent implements AfterViewInit, OnDestroy {
+export class MachineR145FormBodyComponent {
   private readonly fb = inject(FormBuilder)
 
-  private readonly shiftService = inject(ShiftService)
-  private readonly productService = inject(ProductService)
-  private readonly machineService = inject(MachineService)
 
+  private readonly productService = inject(ProductService)
+  private readonly profileService = inject(ProfileService)
+  private readonly shiftAssignmentsService = inject(ShiftAssignmentsService)
 
   formSubscription: Subscription | null = null
   sideEffectSubscriptions: Subscription[] = []
@@ -63,10 +70,12 @@ export class MachineR145FormBodyComponent implements AfterViewInit, OnDestroy {
     fecha: [new Date(), [Validators.required]],
     hora_inicio: ['', [Validators.required]],
 
+    turno: ['', [Validators.required]],
+    turnoName: ['', [Validators.required]],
+
     productoName: ['', [Validators.required]],
     producto: ['', [Validators.required]],
     maquina: ['', [Validators.required]],
-    turnoName: ['', [Validators.required]],
 
     lote_anio: ['', [Validators.required]],
     lote_sem: ['', [Validators.required]],
@@ -82,6 +91,9 @@ export class MachineR145FormBodyComponent implements AfterViewInit, OnDestroy {
     observaciones: ['', [Validators.required]],
 
   })
+
+  profile = ''
+
   code = model<string>('')
   isCreate = model<boolean>(true)
   machineR145 = model.required<CreateMachineR145Dto | UpdateMachineR145Dto>()
@@ -98,17 +110,7 @@ export class MachineR145FormBodyComponent implements AfterViewInit, OnDestroy {
   machineR145TypeEnum = EnumUtil.toCustomSelectContent(MachineR145TypeEnum)
 
 
-  //#region TOKEN
 
-  userRole: string | null = null
-
-  constructor(private tokenService: TokenService) {}
-
-  ngOnInit(): void {
-    // Obtener el rol del usuario desde el token
-    this.userRole = this.tokenService.getRole()
-  }
-  //#endregion
 
   private updateFormValuesEffect = effect(() => {
     if (this.isCreate()) return
@@ -125,7 +127,7 @@ export class MachineR145FormBodyComponent implements AfterViewInit, OnDestroy {
       fecha: DateUtil.toDate(machineR145Data.fecha),
       hora_inicio: machineR145Data.hora_inicio,
 
-
+      maquina: machineR145Data.maquina,
       observaciones: machineR145Data.observaciones,
 
       lote_anio: (machineR145Data.lote_anio),
@@ -144,7 +146,12 @@ export class MachineR145FormBodyComponent implements AfterViewInit, OnDestroy {
   })
 
 
-  ngAfterViewInit(): void {
+  ngOnInit(): void {
+
+    this.getProfileAndShiftAssignment()
+
+
+
     this.formSubscription = this.form.valueChanges.subscribe(() => {
       this.machineR145.update(cur => ({
         ...cur,
@@ -153,6 +160,7 @@ export class MachineR145FormBodyComponent implements AfterViewInit, OnDestroy {
         fecha:  DateUtil.toString(this.form.get('fecha')?.value),
         hora_inicio: this.form.get('hora_inicio')?.value ?? '',
 
+        maquina: this.form.get('maquina')?.value ?? '',
 
         lote_anio: this.form.get('lote_anio')?.value ?? '',
         lote_sem: this.form.get('lote_sem')?.value ?? '',
@@ -211,6 +219,59 @@ export class MachineR145FormBodyComponent implements AfterViewInit, OnDestroy {
     this.form.patchValue({  productoName: product?.name })
   }
   //#endregion
+
+
+  //#region Perfil Modal
+  getProfileAndShiftAssignment() {
+    this.profileService.getByProfile().subscribe({
+      next: ({ data }) => {
+        const username = data?.username
+        this.profile = username
+        console.log('valor', this.profile)
+
+        if (username) {
+          this.getShiftAssignmentsCode(username)
+        }
+      },
+      error: (err) => {
+        console.error('Error al obtener el perfil', err)
+      }
+    })
+  }
+  //#endregion
+
+
+//#region Perfil Modal
+
+  getShiftAssignmentsCode(name: string) {
+    this.shiftAssignmentsService.getByName(name).subscribe({
+      next: ({ data }) => {
+        console.log('Shift Assignment Data:', data)
+
+        const assignment = Array.isArray(data) ? data.find(() => true) : null
+
+        if (assignment) {
+          console.log('Código de asignación:', assignment.code)
+          this.form.patchValue({ turnoName: assignment.code })
+          this.machineR145.update(cur => ({ ...cur, turno: assignment.code }))
+        } else {
+          console.warn('No se encontró asignación de turno para:', name)
+        }
+      },
+      error: () => {
+        console.error('Error al obtener las asignaciones de turno')
+      }
+    })
+  }
+
+
+
+//#endregion
+
+
+
+
+
 
 
 

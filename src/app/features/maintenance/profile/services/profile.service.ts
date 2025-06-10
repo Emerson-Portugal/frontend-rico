@@ -30,4 +30,10 @@ export class ProfileService {
   delete(id: string) {
     return this.api.delete(`${this.url}/${id}/delete/`)
   }
+
+  // perfiles
+
+  getByProfile() {
+    return this.api.get<ProfileDto>(`login/profile/`)
+  }
 }

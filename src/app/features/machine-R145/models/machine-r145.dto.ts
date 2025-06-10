@@ -8,7 +8,7 @@ export interface MachineR145Dto {
     code: string; // "KRYM"
 
     producto: ProductDto;
-    maquina: MachineDto; // "49GK"
+    maquina: string; // "49GK"
     turno: ShiftDto; // "54EF"
 
 
