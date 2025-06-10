@@ -35,6 +35,8 @@
     <div class="flex flex-wrap justify-center gap-4 md:gap-10 w-full max-w-5xl">
       <app-custom-card *ngIf="userRole === 'SUPERVISOR'" imageUrl="assets/img/menu/configv2.png" content="Programar Turnos"
         (click)="navigateTo('management/shifts-work')" />
+      <app-custom-card *ngIf="userRole === 'SUPERVISOR'" imageUrl="assets/img/menu/configv2.png" content="Lista de Usuarios"
+        (click)="navigateTo('management/profiles')" />
 
     </div>
 

@@ -67,6 +67,10 @@ export const routes: VexRoutes = [
             path: 'shifts-work',
             loadChildren: () => import('./features/maintenance/shift-work/shift-work.routes').then(x => x.SHIFT_WORK_ROUTES),
           },
+          {
+            path: 'profiles',
+            loadChildren: () => import('./features/maintenance/profile/profile.routes').then(x => x.PROFILE_ROUTES),
+          },
         ],
       },
 

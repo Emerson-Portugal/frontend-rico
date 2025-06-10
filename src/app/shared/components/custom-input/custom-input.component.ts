@@ -6,11 +6,13 @@ import { BasicHTMLInputTypeAttribute, Mask } from '@shared/constants'
 import { SelectInputValueDirective } from '@shared/directives'
 import { MaskUtil } from '@shared/utils'
 import { NgxMaskDirective } from 'ngx-mask'
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-custom-input',
   standalone: true,
   imports: [
+    CommonModule,
     FormsModule,
     ReactiveFormsModule,
     MatIconModule,

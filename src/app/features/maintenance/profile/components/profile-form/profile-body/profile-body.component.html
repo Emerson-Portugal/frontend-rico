@@ -1,0 +1,30 @@
+<div class="flex w-full card">
+  <form class="flex w-full flex-col gap-y-5 p-5" [formGroup]="form">
+    <div class="flex w-full gap-x-2">
+      <div class="flex w-full flex-col gap-y-5">
+
+
+        <div class="flex w-1/2 gap-x-2">
+          <div class="flex w-full flex-col gap-y-5">
+            <app-custom-input label="Nombre del Usuario" controlName="username" [form]="form" />
+          
+            <ng-container *ngIf="isCreate()">
+              <app-custom-input
+                label="Contraseña"
+                controlName="password"
+                [form]="form"
+              />
+            </ng-container>
+
+
+ 
+            <app-custom-select label="Rol" controlName="role" [form]="form" [dropDownItems]="ProfileTypeEnum" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </form>
+</div>
+

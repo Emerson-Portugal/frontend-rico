@@ -1,0 +1,21 @@
+<app-custom-layout
+  customClasses="flex flex-col gap-y-5 bg-transparent shadow-none"
+  title="Lista de Cuentas"
+  [showActionButtons]="showActionButtons()"
+  [showBreadcrumbs]="showBreadcrumbs()"
+  [showToolbar]="showToolbar()"
+  [(editViewMode)]="editViewMode"
+  (saveElement)="onSaveElement()"
+  (deleteElement)="onDeleteElement()">
+  @if (showHeader()) {
+    <app-profile-header />
+  }
+  <app-profile-body 
+  [class.disabled]="!canEdit()" 
+  [(profiles)]="profiles" 
+  [id]="code()" 
+  [isCreate]="isCreate()" 
+  [role]="role"
+  />
+</app-custom-layout>
+

@@ -25,7 +25,7 @@ export class AuthService {
 
 
   getAccountSession(): Observable<SuccessfulResponse<AccountDto>> {
-    return this.api.post<AccountDto>('login/profile', {});
+    return this.api.get<AccountDto>('login/profile');
   }
   
 }
