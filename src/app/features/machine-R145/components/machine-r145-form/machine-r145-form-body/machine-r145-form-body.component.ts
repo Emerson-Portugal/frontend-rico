@@ -36,6 +36,7 @@ import { ProfileDto } from '@features/maintenance/profile/models'
 import { ShiftAssignmentsService } from '@features/maintenance/shift-assignments/services'
 
 
+import { addDays, format, getISOWeek, startOfWeek } from 'date-fns';
 
 @Component({
   selector: 'app-machine-r145-form-body',
@@ -101,7 +102,7 @@ export class MachineR145FormBodyComponent {
 
   product = signal<ProductDto | null>(null)
 
-
+  tipo: string = '' // valor inicial, puede cambiar dinámicamente
 
 
   ProductModalComponent = ProductModalComponent
@@ -149,6 +150,7 @@ export class MachineR145FormBodyComponent {
   ngOnInit(): void {
 
     this.getProfileAndShiftAssignment()
+    this.gethora()
 
 
 
@@ -214,11 +216,88 @@ export class MachineR145FormBodyComponent {
   }
 
   onProductModalResult(product: ProductDto) {
-    this.product.set(product)
-    this.machineR145.update(cur => ({ ...cur, producto: product?.code }))
-    this.form.patchValue({  productoName: product?.name })
+    this.product.set(product);
+    this.machineR145.update(cur => ({ ...cur, producto: product?.code }));
+    this.tipo = product?.type;
+    this.form.patchValue({ productoName: product?.name });
+
+    const now = new Date();
+
+    if (product?.type === 'COCIDO') {
+      const anio = now.getFullYear();
+      const semana = getISOWeek(now);
+
+      // Base para el cálculo: lunes como inicio de semana
+      const diaSemana = now.getDay(); // 0 (domingo) - 6 (sábado)
+      const lunes = startOfWeek(now, { weekStartsOn: 1 }); // lunes
+      const jueves = addDays(lunes, 3); // jueves
+
+      const baseDate =
+        diaSemana >= 1 && diaSemana <= 3
+          ? lunes
+          : diaSemana >= 4 && diaSemana <= 6
+          ? jueves
+          : now; // domingo: usar hoy como fallback
+
+      const dia = String(baseDate.getDate()).padStart(2, '0');
+      const mes = String(baseDate.getMonth() + 1).padStart(2, '0'); // mes 1-indexado
+      const lote_dme = `${dia}-${mes}`;
+
+      this.form.patchValue({
+        lote_anio: anio.toString(),
+        lote_sem: semana.toString(),
+        lote_dme: lote_dme,
+      });
+    }
+
+    else if (product?.type === 'CRUDO') {
+      const anio = now.getFullYear();
+      const mes = now.getMonth() + 1; // 0-indexed
+      const dia = now.getDate();
+      this.form.patchValue({
+        lote_anio: anio.toString(),
+        lote_sem: mes.toString(),
+        lote_dme: dia.toString(),
+      });
+    }
+
+
+  // === EXTENSION ===
+
+    // Día de la semana en formato 1 (lunes) a 7 (domingo)
+    const extension_dia = now.getDay() === 0 ? 7 : now.getDay();
+
+    // Hora actual en formato HH:mm
+    const extension_hora = format(now, 'HH:mm');
+
+
+    this.form.patchValue({
+      extension_dia: extension_dia.toString(),
+      extension_hora: extension_hora,
+      // extension_dmp se deja manual
+    });
+
+
   }
   //#endregion
+
+
+
+// hora
+
+
+  gethora() {
+    const now = new Date();
+    const hora_inicio = format(now, 'HH:mm');
+
+    this.form.patchValue({
+      hora_inicio: hora_inicio,
+      // extension_dmp se deja manual
+    });
+  }
+
+
+
 
 
   //#region Perfil Modal
@@ -241,7 +320,14 @@ export class MachineR145FormBodyComponent {
   //#endregion
 
 
-//#region Perfil Modal
+
+
+
+
+
+
+
+//#region Turno asignado Modal
 
   getShiftAssignmentsCode(name: string) {
     this.shiftAssignmentsService.getByName(name).subscribe({

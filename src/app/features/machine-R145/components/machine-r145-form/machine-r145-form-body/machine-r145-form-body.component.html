@@ -49,11 +49,24 @@
         <div class="flex w-full card border border-gray-300 lg">
           <div class="flex w-full flex-col gap-y-5 p-5">
             <div class="flex w-full">Lote</div>
-            <app-custom-input label="Año" controlName="lote_anio" [form]="form" />
-            <app-custom-input label="Semana" controlName="lote_sem" [form]="form" />
-            <app-custom-input label="D.y M.E." controlName="lote_dme" [form]="form" />
+
+            <app-custom-input
+              [label]="tipo === 'CRUDO' ? 'Año Actual' : 'Año'"
+              controlName="lote_anio"
+              [form]="form" />
+
+            <app-custom-input
+              [label]="tipo === 'CRUDO' ? 'Mes Actual' : 'Semana'"
+              controlName="lote_sem"
+              [form]="form" />
+
+            <app-custom-input
+              [label]="tipo === 'CRUDO' ? 'Día Actual' : 'D.y M.E.'"
+              controlName="lote_dme"
+              [form]="form" />
           </div>
         </div>
+
 
         <div class="flex w-full card border border-gray-300 lg">
           <div class="flex w-full flex-col gap-y-5 p-5">
