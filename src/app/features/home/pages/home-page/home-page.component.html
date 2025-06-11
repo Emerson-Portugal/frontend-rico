@@ -1,52 +1,73 @@
-<div class="relative w-full h-screen overflow-hidden">
-  <!-- Imagen de fondo opcional -->
-  <img src="assets/vid/sert.png" class="absolute inset-0 w-full h-full object-cover z-0" alt="Fondo" />
+<div class="relative w-full min-h-screen bg-gray-900 text-white">
+  <!-- Imagen de fondo con opacidad -->
+  <img src="assets/vid/sert.png" class="absolute inset-0 w-full h-full object-cover opacity-40 z-0" alt="Fondo" />
 
-  <!-- Contenido centrado -->
-  <div class="relative z-10 flex flex-col items-center justify-center h-full px-4 gap-y-10">
-
-    <!-- Logo (opcional, descomenta si lo quieres) -->
-    <!-- <img src="assets/img/logo/logo.png" class="h-20" alt="Logo" /> -->
-
-    <!-- Fila 1: Maquina R145 -->
-    <div class="flex flex-wrap justify-center gap-4 md:gap-10 w-full max-w-5xl">
-      <app-custom-card
-        *ngIf="userRole === 'OPERADOR' || userRole === 'ADMIN' || userRole === 'SUPERVISOR' || userRole === 'REVISADOR' || userRole === 'AUXILIAR'"
-        imageUrl="assets/img/menu/obrero.png" content="Maquina R145" (click)="navigateTo('machines/R145/')" />
+  <!-- Contenido centrado y organizado -->
+  <div class="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-10 gap-12">
+    
+    <!-- Sección 1: Maquina R145 -->
+    <div class="w-full max-w-6xl text-center">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
+        <app-custom-card
+          *ngIf="userRole && ['OPERADOR', 'ADMIN', 'SUPERVISOR', 'REVISADOR', 'AUXILIAR'].includes(userRole)"
+          imageUrl="assets/img/menu/activov2.png"
+          content="Maquina R145"
+          (click)="navigateTo('machines/R145/')" />
+      </div>
     </div>
 
-    <!-- Fila 2: Maquinas y Turnos -->
-    <div class="flex flex-wrap justify-center gap-4 md:gap-10 w-full max-w-5xl">
-      <app-custom-card *ngIf="userRole === 'ADMIN'  || userRole === 'SUPERVISOR'" imageUrl="assets/img/menu/contabilidadv2.png" content="Maquinas"
-        (click)="navigateTo('management/machines')" />
-      <app-custom-card *ngIf="userRole === 'ADMIN'  || userRole === 'SUPERVISOR'" imageUrl="assets/img/menu/facturav2.png" content="Turnos"
-        (click)="navigateTo('management/shifts')" />
+    <!-- Sección 2: Turnos -->
+    <div class="w-full max-w-6xl text-center">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
+        <app-custom-card
+          *ngIf="userRole && ['ADMIN', 'SUPERVISOR'].includes(userRole)"
+          imageUrl="assets/img/menu/crmv2.png"
+          content="Turnos"
+          (click)="navigateTo('management/shifts')" />
+
+          <app-custom-card
+          *ngIf="userRole === 'SUPERVISOR'"
+          imageUrl="assets/img/menu/programar.png"
+          content="Programar Turnos"
+          (click)="navigateTo('management/shifts-work')" />
+
+        <app-custom-card
+          *ngIf="userRole === 'SUPERVISOR'"
+          imageUrl="assets/img/menu/turnos.png"
+          content="Asig de Turnos"
+          (click)="navigateTo('management/shifts-assignments')" />
+
+      </div>
     </div>
 
-    <!-- Fila 3: Configuración y Productos -->
-    <div class="flex flex-wrap justify-center gap-4 md:gap-10 w-full max-w-5xl">
-      <app-custom-card *ngIf="userRole === 'ADMIN'" imageUrl="assets/img/menu/configv2.png" content="Configuración"
-        (click)="navigateTo('management/dashboard')" />
-      <app-custom-card *ngIf="userRole === 'ADMIN' || userRole === 'SUPERVISOR' " imageUrl="assets/img/menu/configv2.png" content="Productos"
-        (click)="navigateTo('management/products')" />
+    <!-- Sección 3: Configuración y Productos -->
+    <div class="w-full max-w-6xl text-center">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
+        <app-custom-card
+          *ngIf="userRole === 'ADMIN'"
+          imageUrl="assets/img/menu/configv2.png"
+          content="Configuración"
+          (click)="navigateTo('management/dashboard')" />
+        
+        <app-custom-card
+          *ngIf="userRole && ['ADMIN', 'SUPERVISOR'].includes(userRole)"
+          imageUrl="assets/img/menu/order.png"
+          content="Productos"
+          (click)="navigateTo('management/products')" />
+      </div>
     </div>
 
-        <!-- Fila 3: Configuración y Productos -->
-    <div class="flex flex-wrap justify-center gap-4 md:gap-10 w-full max-w-5xl">
-      <app-custom-card *ngIf="userRole === 'SUPERVISOR'" imageUrl="assets/img/menu/configv2.png" content="Programar Turnos"
-        (click)="navigateTo('management/shifts-work')" />
-      <app-custom-card *ngIf="userRole === 'SUPERVISOR'" imageUrl="assets/img/menu/configv2.png" content="Asignaciones de Turnos"
-        (click)="navigateTo('management/shifts-assignments')" />
+    <!-- Sección 4: Programación de turnos (solo supervisor) -->
+    <div class="w-full max-w-6xl text-center">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 justify-items-center">
 
 
-    </div>
-
-            <!-- Fila 3: Configuración y Productos -->
-    <div class="flex flex-wrap justify-center gap-4 md:gap-10 w-full max-w-5xl">
-
-      <app-custom-card *ngIf="userRole === 'SUPERVISOR'" imageUrl="assets/img/menu/configv2.png" content="Lista de Usuarios"
-        (click)="navigateTo('management/profiles')" />
-
+        <app-custom-card
+          *ngIf="userRole === 'SUPERVISOR'"
+          imageUrl="assets/img/menu/lista-corta.png"
+          content="Lista de Usuarios"
+          (click)="navigateTo('management/profiles')" />
+      </div>
     </div>
 
   </div>

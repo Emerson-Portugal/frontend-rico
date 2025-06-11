@@ -7,45 +7,10 @@
   <div class="vex-sidenav-toolbar__container">
     <div class="sidenav-toolbar flex items-center">
       <img [src]="imageUrl$ | async" alt="Logo" class="pointer-events-none select-none h-14" />
-      <!-- <div class="flex flex-auto flex-col items-start vex-sidenav-toolbar__headlin">
-        <p class="font-bold ml-4 text-[20px] text-white">
-          {{ title$ | async }}
-        </p>
-        <p class="text-[8px] text-white uppercase ml-10 -mt-2">Transporte y Servicio</p>
-      </div> -->
-
-      <!-- <button
-        (click)="toggleCollapse()"
-        *ngIf="showCollapsePin$ | async"
-        class="vex-sidenav-toolbar__collapse-toggle -mr-4 leading-none flex-none hidden lg:block"
-        mat-icon-button
-        type="button">
-        <mat-icon
-          *ngIf="!collapsed"
-          class="icon-xs"
-          svgIcon="mat:radio_button_checked"></mat-icon>
-        <mat-icon
-          *ngIf="collapsed"
-          class="icon-xs"
-          svgIcon="mat:radio_button_unchecked"></mat-icon>
-      </button> -->
+    
     </div>
 
-    <!-- <div *ngIf="searchVisible$ | async" class="vex-sidenav-search__container">
-      <div
-        (click)="openSearch()"
-        class="vex-sidenav-search relative"
-        matRipple
-        matRippleColor="var(--vex-sidenav-item-ripple-color)">
-        <mat-icon
-          class="flex-none vex-sidenav-search__icon"
-          svgIcon="mat:search"></mat-icon>
-        <div class="flex-auto vex-sidenav-search__placeholder">
-          Quick Search
-        </div>
-        <div class="flex-none vex-sidenav-search__keybind">Ctrl K</div>
-      </div>
-    </div> -->
+   
 
     <div class="vex-sidenav-toolbar__divider"></div>
   </div>
