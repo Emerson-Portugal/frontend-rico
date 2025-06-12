@@ -3,15 +3,16 @@ name: Deploy Angular App to DigitalOcean
 on:
   push:
     branches:
-      - develop # Este es el trigger para la rama 'develop'
+      - develop
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      
-       # 4. Instala dependencias, construye y mueve archivos en el servidor remoto
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Build and Deploy on DigitalOcean
         uses: appleboy/ssh-action@v0.1.0
         with:
@@ -20,9 +21,21 @@ jobs:
           key: ${{ secrets.PRIVATE_KEY }}
           script: |
             cd frontend-rico/
-            git pull
+            git pull origin develop
             npm install --force
-            ng build --configuration production
+            npm run build --configuration=sertchile
+
+            # Asegúrate de que el directorio destino exista
+            sudo mkdir -p /var/www/html/
+
+            # Borra el contenido anterior
             sudo rm -rf /var/www/html/*
-            sudo mv dist/sertchile/* /var/www/html/
-            sudo systemctl reload caddy
+
+            # Copia los archivos compilados
+            sudo cp -r dist/sertchile/* /var/www/html/
+
+            # Establece permisos correctos
+            sudo chown -R www-data:www-data /var/www/html/
+
+            # Reinicia Nginx para aplicar cambios
+            sudo systemctl restart nginx
