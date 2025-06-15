@@ -20,22 +20,16 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.PRIVATE_KEY }}
           script: |
-            cd frontend-rico/
+            cd /root
+            if [ ! -d frontend-rico ]; then
+              git clone https://github.com/Emerson-Portugal/frontend-rico.git
+            fi
+            cd frontend-rico
             git pull origin develop
             npm install --force
             npm run build --configuration=sertchile
 
-            # Asegúrate de que el directorio destino exista
-            sudo mkdir -p /var/www/html/
-
-            # Borra el contenido anterior
             sudo rm -rf /var/www/html/*
-
-            # Copia los archivos compilados
             sudo cp -r dist/sertchile/* /var/www/html/
-
-            # Establece permisos correctos
             sudo chown -R www-data:www-data /var/www/html/
-
-            # Reinicia Nginx para aplicar cambios
             sudo systemctl restart nginx
