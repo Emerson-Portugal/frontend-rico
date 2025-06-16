@@ -61,7 +61,7 @@ export class ProductBodyComponent {
           ...cur,
           code: this.form.get('code')!.value ?? '',
           name: this.form.get('name')!.value ?? '',
-          live: this.form.get('live')!.value ?? 0,
+          day: this.form.get('day')!.value ?? 0,
           type: this.form.get('type')!.value ?? '',
         }))
         return
@@ -70,7 +70,7 @@ export class ProductBodyComponent {
       this.product.update(cur => ({
         ...cur,
         name: this.form.get('name')!.value ?? '',
-        live: this.form.get('live')!.value ?? 0,
+        day: this.form.get('day')!.value ?? 0,
         type: this.form.get('type')!.value ?? '',
       }))
     })
