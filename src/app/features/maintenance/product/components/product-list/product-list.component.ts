@@ -41,6 +41,12 @@ export class ProductListComponent {
       visible: true,
     },
     {
+      label: 'Dias de Vida',
+      property: 'day',
+      type: 'text',
+      visible: true,
+    },
+    {
       label: 'Tipo',
       property: 'type',
       type: 'text',
@@ -74,6 +80,7 @@ export class ProductListComponent {
     this.productService.getAll(params).subscribe({
       next: ({ data }) => {
         this.products.set(data.results)
+        console.log('Products:', this.products())
         this.paginator.set({
           currentPage: data.pageNumber,
           pageSize: data.pageSize,

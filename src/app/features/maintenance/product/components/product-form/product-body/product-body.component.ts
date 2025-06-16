@@ -29,6 +29,7 @@ export class ProductBodyComponent {
   form = this.fb.group({
     code: ['', [Validators.required, Validators.pattern(RegexPatterns.TEXT_ONLY)]],
     name: ['', [Validators.required, Validators.pattern(RegexPatterns.TEXT_ONLY)]],
+    day: [0, [Validators.required, Validators.pattern(RegexPatterns.ALPHA_NUMERIC)]],
     type: ['', [Validators.required]],
   })
   formSubscription: Subscription | null = null
@@ -42,6 +43,7 @@ export class ProductBodyComponent {
     this.form.patchValue({
       code: this.code(),
       name: product.name,
+      day: product.day,
       type: product.type,
     })
     this.updateFormValuesEffect.destroy()
@@ -59,6 +61,7 @@ export class ProductBodyComponent {
           ...cur,
           code: this.form.get('code')!.value ?? '',
           name: this.form.get('name')!.value ?? '',
+          live: this.form.get('live')!.value ?? 0,
           type: this.form.get('type')!.value ?? '',
         }))
         return
@@ -67,6 +70,7 @@ export class ProductBodyComponent {
       this.product.update(cur => ({
         ...cur,
         name: this.form.get('name')!.value ?? '',
+        live: this.form.get('live')!.value ?? 0,
         type: this.form.get('type')!.value ?? '',
       }))
     })

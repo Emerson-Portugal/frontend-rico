@@ -15,6 +15,7 @@ export class CreateProductPageComponent {
   product: CreateProductDto = {
     code: '',
     name: '',
+    day: 0,
     type: ''
   }
 }

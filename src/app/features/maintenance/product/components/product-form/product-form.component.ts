@@ -24,6 +24,7 @@ export class ProductFormComponent {
   product = model<CreateProductDto | UpdateProductDto>({
     code: this.code() ,
     name: '',
+    day: 0,
     type: ''
   })
 
@@ -47,6 +48,7 @@ export class ProductFormComponent {
         this.product.set({
           code: data.code,
           name: data.name,
+          day: data.day,
           type: data.type,
         })
       },
@@ -85,6 +87,7 @@ export class ProductFormComponent {
       this.product.set({
         code: '',
         name: '',
+        day: 0,
         type: '',
       })
       this.child()?.form.reset()

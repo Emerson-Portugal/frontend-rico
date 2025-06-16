@@ -37,6 +37,7 @@ import { ShiftAssignmentsService } from '@features/maintenance/shift-assignments
 
 
 import { addDays, format, getISOWeek, startOfWeek } from 'date-fns';
+import constants from 'constants'
 
 @Component({
   selector: 'app-machine-r145-form-body',
@@ -262,7 +263,7 @@ export class MachineR145FormBodyComponent {
     }
 
 
-  // === EXTENSION ===
+    // === EXTENSION ===
 
     // Día de la semana en formato 1 (lunes) a 7 (domingo)
     const extension_dia = now.getDay() === 0 ? 7 : now.getDay();
@@ -276,6 +277,21 @@ export class MachineR145FormBodyComponent {
       extension_hora: extension_hora,
       // extension_dmp se deja manual
     });
+
+
+    // === Fecha Vencimiento ===
+
+
+
+    const fechaActual = this.form.get('fecha')?.value ?? new Date();
+    const fechaVencimiento = addDays(new Date(fechaActual), product?.day ?? 0);
+
+    this.form.patchValue({
+      vencimiento: fechaVencimiento
+    });
+
+
+
 
 
   }
