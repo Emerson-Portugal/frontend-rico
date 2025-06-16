@@ -74,13 +74,13 @@ export class ProductListComponent {
     const params = new HttpParams()
       .set('page', paginator.currentPage)
       .set('pageSize', paginator.pageSize)
-      .set('name', searchTerm)
+      .set('search', searchTerm)
 
 
     this.productService.getAll(params).subscribe({
       next: ({ data }) => {
         this.products.set(data.results)
-        console.log('Products:', this.products())
+
         this.paginator.set({
           currentPage: data.pageNumber,
           pageSize: data.pageSize,
