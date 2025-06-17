@@ -96,18 +96,28 @@ export class LayoutComponent {
       children: [
         {
           type: 'link',
-          label: 'Mantenimientos Productos',
+          label: 'Productos',
           route: 'management/products',
         },
         {
           type: 'link',
-          label: 'Mantenimientos Maquinas',
-          route: 'management/machines',
+          label: 'Turnos',
+          route: 'management/shifts',
         },
         {
           type: 'link',
-          label: 'Mantenimientos Turnos',
-          route: 'management/shifts',
+          label: 'Turnos de Trabajo',
+          route: 'management/shifts-work',
+        },
+        {
+          type: 'link',
+          label: 'Turnos Asignados',
+          route: 'management/shifts-assignments',
+        },
+        {
+          type: 'link',
+          label: 'Perfiles',
+          route: 'management/profiles',
         },
       ],
     },

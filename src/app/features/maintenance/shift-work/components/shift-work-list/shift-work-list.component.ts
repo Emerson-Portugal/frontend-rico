@@ -18,7 +18,7 @@ export class ShiftWorkListComponent {
 
   private readonly shiftWorkService = inject(ShiftWorkService)
 
-  title = 'Tipo de Turno'
+  title = 'Turnos de Trabajo'
   columns: TableColumn<ShiftWorkDto>[] = [
     {
       label: 'ID',

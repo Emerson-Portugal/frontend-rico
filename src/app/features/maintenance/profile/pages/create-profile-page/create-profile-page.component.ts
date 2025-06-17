@@ -14,6 +14,7 @@ export class CreateProfilePageComponent {
   editViewMode = EditViewModeEnum.CREATE
   profiles: CreateProfileDto = {
     username: '',
+    full_name: '',
     password: '',
     role: '',
   }

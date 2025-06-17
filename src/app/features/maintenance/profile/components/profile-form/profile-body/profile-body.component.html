@@ -6,7 +6,8 @@
 
         <div class="flex w-1/2 gap-x-2">
           <div class="flex w-full flex-col gap-y-5">
-            <app-custom-input label="Nombre del Usuario" controlName="username" [form]="form" />
+            <app-custom-input label="Nombre Clave" controlName="username" [form]="form" />
+            <app-custom-input label="Nombre Completo" controlName="full_name" [form]="form" />
           
             <ng-container *ngIf="isCreate()">
               <app-custom-input

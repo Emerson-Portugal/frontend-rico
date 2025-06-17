@@ -29,8 +29,15 @@ export class ProfileListComponent {
       cssClasses: ['font-medium'],
     },
     {
-      label: 'Nombre del Usuario',
+      label: 'Nombre Clave',
       property: 'username',
+      type: 'text',
+      visible: true,
+      cssClasses: ['font-medium'],
+    },
+    {
+      label: 'Nombre Completo',
+      property: 'full_name',
       type: 'text',
       visible: true,
       cssClasses: ['font-medium'],
@@ -72,7 +79,7 @@ export class ProfileListComponent {
         
         
         const filteredResults = data.results.filter(user => user.role === "OPERADOR" || user.role === "AUXILIAR" || user.role === "REVISADOR");
-
+        console.log(filteredResults)
         this.profiles.set(filteredResults);
         this.paginator.set({
           currentPage: data.pageNumber,

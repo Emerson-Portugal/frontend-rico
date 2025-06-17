@@ -12,6 +12,7 @@ import { da } from 'date-fns/locale'
 
 const NEW_ACCOUNT = {
   username: '',
+  full_name: '',
   password : '',
   role: '',
 
@@ -66,6 +67,7 @@ export class ProfileFormComponent {
       next: ({ data }) => {
         this.profiles.set({
           username: data.username,
+          full_name: data.full_name,
           role: data.role,
 
 
@@ -79,35 +81,55 @@ export class ProfileFormComponent {
   onSaveElement() {
     const profiles = this.profiles();
 
-    if (!profiles) return
+    if (!profiles) return;
 
     if (this.isCreate()) {
       this.profileService.create(profiles as CreateProfileDto).subscribe({
         next: () => {
-          this.snackBar.open('Se creo correctamente', 'OK', { duration: 3_000 })
-          this.onCleanUp()
+          this.snackBar.open('Se creó correctamente', 'OK', { duration: 5_000 });
+          this.onCleanUp();
         },
-      })
-      return
+        error: (err) => {
+          const errors = err?.error;
+          if (errors && typeof errors === 'object') {
+            const messages = Object.values(errors).flat().join('\n');
+            this.snackBar.open(messages, 'OK', { duration: 5_000 });
+          } else {
+            this.snackBar.open('Error al crear usuario', 'OK', { duration: 5_000 });
+          }
+        }
+      });
+      return;
     } else {
       const profilesForUpdate = {
         username: profiles.username,
+        full_name: profiles.full_name,
         role: profiles.role,
-      }
+      };
 
       this.profileService.update(this.code(), profilesForUpdate).subscribe({
         next: () => {
-          this.snackBar.open('Se actualizo correctamente', 'OK', { duration: 3_000 })
-          this.onCleanUp()
+          this.snackBar.open('Se actualizó correctamente', 'OK', { duration: 5_000 });
+          this.onCleanUp();
         },
-      })
+        error: (err) => {
+          const errors = err?.error;
+          if (errors && typeof errors === 'object') {
+            const messages = Object.values(errors).flat().join('\n');
+            this.snackBar.open(messages, 'OK', { duration: 5_000 });
+          } else {
+            this.snackBar.open('Error al actualizar usuario', 'OK', { duration: 5_000 });
+          }
+        }
+      });
     }
   }
+
 
   onDeleteElement() {
     this.profileService.delete(this.code()).subscribe({
       next: () => {
-        this.snackBar.open('Se elimino correctamente', 'OK', { duration: 3_000 })
+        this.snackBar.open('Se elimino correctamente', 'OK', { duration: 5_000 })
         this.router.navigate(['../../'], { relativeTo: this.route })
       },
     })

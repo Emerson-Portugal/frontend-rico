@@ -34,8 +34,9 @@ export class ProfileBodyComponent {
 
   formSubscription: Subscription | null = null
   form = this.fb.group({
-    username: ['', [Validators.required, Validators.pattern(RegexPatterns.ALPHA_NUMERIC)]],
-    password: ['', [Validators.required, Validators.pattern(RegexPatterns.ALPHA_NUMERIC)]],
+    username: ['', [Validators.required]],
+    full_name: ['', [Validators.required]],
+    password: ['', [Validators.required]],
     role: ['', [Validators.required]],
 
 
@@ -55,6 +56,7 @@ export class ProfileBodyComponent {
       if (!profile || ValidatorUtil.isObjectEmpty(profile as any)) return
       this.form.patchValue({
         username: String(profile.username),        
+        full_name: String(profile.full_name),        
         role: String(this.role),
         //role: String(profile.role),
       })
@@ -74,6 +76,7 @@ export class ProfileBodyComponent {
     this.formSubscription = this.form.valueChanges.subscribe(() => {
       const updated: any = {
         username: this.form.get('username')?.value ?? '',
+        full_name: this.form.get('full_name')?.value ?? '',
         role: this.form.get('role')?.value ?? '',
       }
 
