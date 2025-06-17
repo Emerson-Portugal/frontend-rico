@@ -127,6 +127,15 @@ export class MachineR145FormComponent{
 
           this.router.navigate(['../'], { relativeTo: this.route })
         },
+        error: (err) => {
+          const errors = err?.error;
+          if (errors && typeof errors === 'object') {
+            const messages = Object.values(errors).flat().join('\n');
+            this.snackBar.open(messages, 'OK', { duration: 5_000 });
+          } else {
+            this.snackBar.open('Error', 'OK', { duration: 5_000 });
+          }
+        }
       })
       return
     }
@@ -135,6 +144,15 @@ export class MachineR145FormComponent{
         this.snackBar.open('Se actualizo correctamente', 'OK', { duration: 3_000 })
         this.router.navigate(['../../'], { relativeTo: this.route })
       },
+      error: (err) => {
+        const errors = err?.error;
+        if (errors && typeof errors === 'object') {
+          const messages = Object.values(errors).flat().join('\n');
+          this.snackBar.open(messages, 'OK', { duration: 5_000 });
+        } else {
+          this.snackBar.open('Error', 'OK', { duration: 5_000 });
+        }
+      }
     })
   }
 
